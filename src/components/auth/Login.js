@@ -1,14 +1,13 @@
 import axios from 'axios';
 import React, { Component } from 'react'
 
-export default class Registration extends Component {
+export default class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
             email: "",
             password: "",
-            password_confirmation: "",
-            registrationErrors: ""
+            loginErrors: ""
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -17,7 +16,7 @@ export default class Registration extends Component {
     handleSubmit(event) {
         console.log("form submitted")
         event.preventDefault()
-        axios.post('http://localhost:3001/api/v1/registrations', {
+        axios.post('http://localhost:3001/api/v1/login', {
                 user: {
                     email: this.state.email,
                     password: this.state.password
@@ -63,17 +62,7 @@ export default class Registration extends Component {
                     </input>
                     <br/>
 
-                    <input
-                        type="password"
-                        name="password_confirmation"
-                        placeholder="Password confirmation"
-                        value={this.state.password_confirmation}
-                        onChange={this.handleChange}
-                        required>
-                    </input>
-                    <br/>
-
-                    <button type="submit">Register</button>
+                    <button type="submit">Login</button>
                 </form>
 
             </div>
