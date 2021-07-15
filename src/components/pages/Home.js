@@ -2,11 +2,24 @@ import React, { Component } from 'react'
 import Registration from '../auth/Registration'
 
 export default class Home extends Component {
-    render() {
+        constructor(props) {
+            super(props)
+
+            this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this)
+        }
+
+        handleSuccessfulAuth(data) {
+            //Update parent component
+            //Redirect user to the dashboard
+            this.props.history.push('/dashboard')
+        }
+
+        render() {
         return (
             <div>
                 <h1>Home</h1>
-                <Registration/>
+                <h2>Status: {this.props.loggedInStatus}</h2>
+                <Registration handleSuccessfulAuth={this.handleSuccessfulAuth}/>
             </div>
         )
     }
