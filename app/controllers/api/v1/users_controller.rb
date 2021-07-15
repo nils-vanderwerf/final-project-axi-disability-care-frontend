@@ -15,5 +15,5 @@ class Api::V1::UsersController < ApplicationController
         else
           render json: { status: 500 }
         end
-      end
     end
+end
