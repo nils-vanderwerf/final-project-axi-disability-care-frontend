@@ -2,12 +2,11 @@
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   Rails.application.routes.draw do
-    post 'api/v1/login' => 'api/v1/sessions#create'
+    get 'api/v1/login' => 'api/v1/sessions#create'
+    get 'api/v1/logged_in' => 'api/v1/sessions#logged_in'
+    get 'api/v1/logout' => 'api/v1/sessions#logout'
     get 'api/v1/get_current_user' => 'api/v1/sessions#get_current_user'
     post 'api/v1/registrations' => 'api/v1/users#create'
-    resources :registrations, only: [:create]
-    delete 'api/v1/logout', to: "api/v1/sessions#destroy"
-    get 'api/v1/logged_in', to: "api/v1/sessions#logged_in"
   
     namespace :api do
       namespace :v1 do
