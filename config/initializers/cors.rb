@@ -11,13 +11,15 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
         origins 'http://localhost:3000'
           resource '*', 
           headers: :any,
-            methods: [:get, :post, :put, :patch, :delete, :options, :head], credentials: true
+          methods: [:get, :post, :put, :patch, :delete, :options, :head], credentials: true
       end
       # Add production URL
       allow do
-        origins "https://final-project-axi-backend.herokuapp.com/"
+        origins "http://oasis-disability-care-backend.herokuapp.com/"
          resource "*",
           headers: :any,
           methods: [:get, :post, :put, :patch, :delete, :options, :head], credentials: true
         end
     end
+
+    
