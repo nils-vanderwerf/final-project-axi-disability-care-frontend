@@ -42,7 +42,9 @@ export default class Registration extends Component {
     render() {
         return (
             <div>
+                {/* <div style={{ color: "red" }}>{this.props.errors}</div> */}
                 <form onSubmit={this.handleSubmit}>
+                
                     <input
                         type="email"
                         name="email"
@@ -52,7 +54,6 @@ export default class Registration extends Component {
                         required>
                     </input>
                     <br/>
-
                     <input
                         type="password"
                         name="password"
