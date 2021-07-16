@@ -10,14 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_15_070314) do
+ActiveRecord::Schema.define(version: 2021_07_16_104431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "registrations", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "location"
+    t.date "task_date"
+    t.time "task_start_time"
+    t.bigint "client_id"
+    t.bigint "carer_id"
+    t.bigint "category_id"
+    t.boolean "completed", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["carer_id"], name: "index_tasks_on_carer_id"
+    t.index ["category_id"], name: "index_tasks_on_category_id"
+    t.index ["client_id"], name: "index_tasks_on_client_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -25,6 +49,16 @@ ActiveRecord::Schema.define(version: 2021_07_15_070314) do
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.text "bio"
+    t.text "age"
+    t.text "gender"
+    t.integer "zip_code"
+    t.boolean "is_carer"
+    t.boolean "has_vehicle"
+    t.boolean "has_police_check"
+    t.boolean "can_work_with_kids"
   end
 
 end
