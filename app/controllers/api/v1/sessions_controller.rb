@@ -14,6 +14,7 @@ class Api::V1::SessionsController < ApplicationController
         else
             render json: { status: 401 }
         end
+    end
         def logged_in
             if @current_user
                 render json: {
@@ -31,4 +32,3 @@ class Api::V1::SessionsController < ApplicationController
             render json: { status: 200, logged_out: true}
         end
     end
-end
