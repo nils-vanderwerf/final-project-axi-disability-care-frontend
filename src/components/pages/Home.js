@@ -21,8 +21,6 @@ export default class Home extends Component {
     render() {
         return (
             <Container>
-                <h1>Home</h1>
-                <h2>Status: {this.props.loggedInStatus}</h2>
                 {this.props.isLoggedIn === 'LOGGED_IN' ? <Button onClick={() => this.props.handleLogout()}>Logout</Button> : null}
                 <Registration 
                 handleSuccessfulAuth={this.handleSuccessfulAuth} />

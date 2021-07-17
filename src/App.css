@@ -1,3 +1,7 @@
 .MuiContainer-fixed {
   max-width: 100%;
 }
+
+.form-wrapper h2 {
+  margin-bottom: 0;;
+}
