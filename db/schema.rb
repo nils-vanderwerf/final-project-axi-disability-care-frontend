@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_17_021649) do
+ActiveRecord::Schema.define(version: 2021_07_17_030103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,11 +18,6 @@ ActiveRecord::Schema.define(version: 2021_07_17_021649) do
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "registrations", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -39,6 +34,7 @@ ActiveRecord::Schema.define(version: 2021_07_17_021649) do
     t.boolean "completed", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "approved", default: false
     t.index ["carer_id"], name: "index_tasks_on_carer_id"
     t.index ["category_id"], name: "index_tasks_on_category_id"
     t.index ["client_id"], name: "index_tasks_on_client_id"

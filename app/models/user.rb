@@ -7,12 +7,12 @@ class User < ApplicationRecord
 
     has_many :booked_tasks,
     primary_key: :id,
-    foreign_key: :user_id,
+    foreign_key: :client_id,
     class_name: :Task
 
     has_many :hired_tasks,
     primary_key: :id,
-    foreign_key: :support_worker_id,
+    foreign_key: :carer_id,
     class_name: :Task
 
     has_many :clients,
