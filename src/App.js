@@ -129,7 +129,13 @@ class App extends Component {
                       />
                 )} />
                 <Route exact path='/pick-category' component={SplashPage} />
-                <Route exact path='/new-task' component={NewTask} />
+                <Route exact path='/new-task'render={props => (
+                    <Logout 
+                      {...props} 
+                      handleLogout={this.handleLogout}
+                      loggedInStatus={this.state.loggedInStatus} 
+                      />
+                  )} />
                 <Route exact path='/confirm-task' component={ConfirmTask}/>
                 <Route exact path='/my-tasks' component={MyTasks} />
                 <Route exact path='/user-account' component={UserAccount} />

@@ -5,6 +5,7 @@ import LoginForm from './Auth/LoginForm'
 import CategoryList from './Categories/CategoryList'
 import { AppBar, Container, Button, Grid } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import SupportWorkers from './User/SupportWorkers'
 
 export default class Home extends Component {
 
@@ -34,7 +35,8 @@ export default class Home extends Component {
     render() {
         return (
             <div className="splash-hero-containrr">
-                <CategoryList></CategoryList>
+                {/* <CategoryList></CategoryList> */}
+                <SupportWorkers/>
             </div>
         )
     }
