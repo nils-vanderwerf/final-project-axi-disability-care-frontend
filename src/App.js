@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import Home from './components/pages/Home'
 import Dashboard from './components/pages/Dashboard';
 import { AppBar, Container, Button } from '@material-ui/core';
+import Registration from './components/pages/Auth/Registration';
+import LoggedInNavBar from './components/Nav/loggedInNavBar';
+import LoggedOutNavBar from './components/Nav/loggedOutNavBar';
+import LoginForm from './components/pages/Auth/LoginForm';
+import Logout from './components/pages/Auth/Logout';
+import SplashPage from './components/pages/splash_page/SplashPage'
+import NewTask from './components/Tasks/NewTask';
+import ConfirmTask from './components/Tasks/ConfirmTask';
+import MyTasks from './components/Tasks/MyTasks';
+import UserAccount from './components/pages/User/Account';
 
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
 
@@ -64,44 +74,53 @@ class App extends Component {
   })
 }
 
-
-
   render() {
+
     return (
       <>
-        
-          <AppBar position="static" color="primary">
-          <Container fixed>
-            {/* Router in here */}
-           { this.state.loggedInStatus === "LOGGED_IN" ? <Button onClick={this.handleLogout}>Logout</Button>: <h1>Logged Out Nav Bar</h1>}
-           </Container>
-        </AppBar>
-        <Container>
-        <Router>
-          <Switch>
-            <Route
-              exact path={"/"}
-              render={props => (
-                <Home {...props} 
-                isLoggedIn={this.props.loggedInStatus}
-                handleLogin={this.handleLogin}
-                handleLogout={this.handleLogout}
-                loggedInStatus={this.state.loggedInStatus} 
-                />
-              )} 
-              />
-            <Route path={"/dashboard"}
-              render={props => (
-                <Dashboard {...props} 
-                loggedInStatus={this.state.loggedInStatus} />
-              )}
-            />
-          </Switch>
-        </Router>
-      </Container>
+       <div className="page-content">
+          <Container />
+          <Router>
+            <Switch>
+                <Route 
+                exact path={"/"} 
+                render={props => (
+                  <Home 
+                    {...props} 
+                    // handleLogout={this.handleLogout}
+                    handleLogin={this.handleLogin}
+                    isLoggedIn={this.state.loggedInStatus} 
+                    />
+                )} />
+              <Route 
+                exact path={"/logout"} 
+                render={props => (
+                  <Logout 
+                    {...props} 
+                    handleLogout={this.handleLogout}
+                    loggedInStatus={this.state.loggedInStatus} 
+                    />
+                )} />
+              <Route 
+                exact path={"/dashboard"} 
+                render={props => (
+                  <Dashboard 
+                    {...props} 
+                    loggedInStatus={this.state.loggedInStatus}
+                    user={this.state.user}
+                    />
+                )} />
+              <Route exact path='/pick-category' component={SplashPage} />
+              <Route exact path='/new-task' component={NewTask} />
+              <Route exact path='/confirm-task' component={ConfirmTask}/>
+              <Route exact path='/my-tasks' component={MyTasks} />
+              <Route exact path='/user-account' component={UserAccount} />
+
+            </Switch>
+          </Router>
+          <Container />
+        </div>
       </>
     );
   }
 }
-
-export default App;

@@ -6,20 +6,22 @@ export default class Registration extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            is_carer: false,
-            first_name: "",
-            last_name: "",
-            bio: "",
-            age: "",
-            gender: "",
-            zip_code: 2000,
-            has_vehicle: false,
-            email: "",
-            first_aid_training: false,
-            background_check: false,
-            hourly_rate: 50,
-            password: "",
-            password_confirmation: "",
+            user: {
+                is_carer: false,
+                first_name: "",
+                last_name: "",
+                bio: "",
+                age: "",
+                gender: "",
+                zip_code: 2000,
+                has_vehicle: false,
+                email: "",
+                first_aid_training: false,
+                background_check: false,
+                hourly_rate: 50,
+                password: "",
+                password_confirmation: ""
+            },
             registrationErrors: ""
         }
 
@@ -28,28 +30,10 @@ export default class Registration extends Component {
     }
 
     handleSubmit(event) {
-        const { is_carer, first_name, last_name, email, password, password_confirmation, bio, age, gender, zip_code, has_vehicle, hourly_rate, first_aid_training, background_check} = this.state
-        console.log("form submitted")
+        const { user } = { ...this.state };
         event.preventDefault()
         axios.post('http://localhost:3001/api/v1/registrations', {
-            user: {
-                is_carer: is_carer,
-                first_name: first_name,
-                last_name: last_name,
-                email: email,
-                password: password,
-                password: password_confirmation,
-                bio: bio,
-                age: age,
-                gender: gender,
-                zip_code: zip_code,
-                has_vehicle: has_vehicle,
-                first_aid_training: first_aid_training,
-                hourly_rate: hourly_rate,
-                background_check: background_check,
-                first_aid_training: false,
-                hourly_rate: hourly_rate
-            }
+            user: user
         },
             { withCredentials: true }
         ).
@@ -64,12 +48,17 @@ export default class Registration extends Component {
     }
 
     handleChange(event) {
-    this.setState({
-        [event.target.name]: event.target.value
-    })
+        const { user } = { ...this.state };
+        const currentState = user;
+        const { name, value } = event.target;
+        currentState[name] = value;
+      
+        this.setState({ user: currentState });
     }
+
     render() {
-        const { first_name, last_name, email, password, password_confirmation, bio, age, gender, zip_code, is_carer, has_vehicle, hourly_rate, first_aid_training, background_check } = this.state
+        const { first_name, last_name, email, password, password_confirmation, bio, age, gender, zip_code, is_carer, has_vehicle, hourly_rate, first_aid_training, background_check } = this.state.user
+
         return (
             <Container class="form-wrapper">
                 <FormControl component="fieldset"
@@ -157,6 +146,17 @@ export default class Registration extends Component {
                             margin="normal"
                             variant="outlined"
                             fullWidth />
+
+                        <TextField
+                            label="Zip COde"
+                            name="zip_code"
+                            type="text"
+                            value={zip_code}
+                            onChange={this.handleChange}
+                            margin="normal"
+                            variant="outlined"
+                            fullWidth />
+
                             <h2>Gender</h2>
                             <RadioGroup component="fieldset" aria-label="Gender"
                             name="gender"

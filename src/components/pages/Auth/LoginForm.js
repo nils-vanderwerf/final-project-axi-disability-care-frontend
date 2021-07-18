@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { Component } from 'react'
+import { TextField, Container, Button } from '@material-ui/core';
 
-export default class Login extends Component {
+export default class LoginForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -42,29 +43,30 @@ export default class Login extends Component {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <input
+                    <TextField 
+                        id="outlined-basic" 
+                        label="Email" 
+                        variant="outlined"
                         type="email"
                         name="email"
                         placeholder="Email"
                         value={this.state.email}
                         onChange={this.handleChange}
-                        required>
-                    </input>
+                        required/>
                     <br/>
 
-                    <input
+                    <TextField
+                        variant="outlined"
                         type="password"
                         name="password"
-                        placeholder="Password"
+                        label="Password"
                         value={this.state.password}
                         onChange={this.handleChange}
-                        required>
-                    </input>
+                        required/>
                     <br/>
 
-                    <button type="submit">Login</button>
+                    <Button type="submit" color="primary" variant="contained" style={{marginTop: '10px'}}>Login</Button>
                 </form>
-
             </div>
         )
     }
