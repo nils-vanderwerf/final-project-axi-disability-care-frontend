@@ -15,7 +15,7 @@ class Api::V1::SessionsController < ApplicationController
             render json: { status: 401 }
         end
     end
-        def logged_in
+        def get_current_user
             if @current_user
                 render json: {
                     logged_in: true,
