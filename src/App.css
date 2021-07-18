@@ -5,3 +5,7 @@
 .form-wrapper h2 {
   margin-bottom: 0;;
 }
+
+.MuiButton-text.dark-theme .MuiButton-label {
+  color: #fff;
+}

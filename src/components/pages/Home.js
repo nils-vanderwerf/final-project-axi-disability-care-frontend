@@ -34,10 +34,11 @@ export default class Home extends Component {
     render() {
         return (
             <div>
+
                 <h1>Home</h1>
                 <h1>Status: {this.props.isLoggedIn}</h1>
                 {/* <button onClick={() => this.handleLogoutClick()}>Logout</button> */}
-                <LoginForm handleSuccessfulAuth={this.handleSuccessfulAuth} />
+                {this.props.isLoggedIn ? <h1>Display login link</h1> : <h1> Display logout link</h1>}<LoginForm handleSuccessfulAuth={this.handleSuccessfulAuth} />
             </div>
         )
     }
