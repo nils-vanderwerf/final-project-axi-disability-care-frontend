@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { fetchUsers } from '../../../redux/users/userActions'
+import {Button} from '@material-ui/core'
 
 function SupportWorkers ({ userData, fetchUsers }) {
   useEffect(() => {
@@ -14,9 +15,17 @@ function SupportWorkers ({ userData, fetchUsers }) {
     <div>
       <h2>Users List</h2>
       <div>
-        {userData &&
-          userData.users &&
-          userData.users.map(user => <p>{user.name}</p>)}
+        {
+          userData.users.map(user => 
+          <div class="support_worker">
+                <h3>{user.first_name} {user.last_name} </h3>
+                <p><strong>Post Code</strong>: {user.zip_code}</p>
+                <p>{user.bio}</p>
+                <Button variant="contained" color="primary">Book Support Worker</Button>
+          </div>
+          
+          )
+          }
       </div>
     </div>
   )
