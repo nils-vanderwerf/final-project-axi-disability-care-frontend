@@ -18,7 +18,7 @@
         resources :categories
         resources :tasks
         # resources :postcodes
-        resources :users, only: [:create]
+        resources :users
         # resources :carers
         # resources :participants
         # resources :bookings
