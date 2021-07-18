@@ -1,6 +1,6 @@
 import React from 'react'
 import { AppBar, Container, Button } from '@material-ui/core';
-import SplashPage from './splash_page/SplashPage'
+import SplashPage from './Categories/CategoryList'
 
 const Dashboard = props => {
     return (

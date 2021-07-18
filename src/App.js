@@ -11,7 +11,7 @@ import LoggedInNavBar from './components/Nav/loggedInNavBar';
 import LoggedOutNavBar from './components/Nav/loggedOutNavBar';
 import LoginForm from './components/pages/Auth/LoginForm';
 import Logout from './components/pages/Auth/Logout';
-import SplashPage from './components/pages/splash_page/SplashPage'
+import SplashPage from './components/pages/Categories/CategoryList'
 import NewTask from './components/Tasks/NewTask';
 import ConfirmTask from './components/Tasks/ConfirmTask';
 import MyTasks from './components/Tasks/MyTasks';

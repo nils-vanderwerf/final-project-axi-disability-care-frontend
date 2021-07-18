@@ -24,7 +24,7 @@ export default class SplashPage extends React.Component {
       .then(response => {
         console.log(response.data)
         this.setState({
-          items: response.data
+          categories: response.data
         })
       })
       .catch((error) => {
@@ -39,9 +39,9 @@ export default class SplashPage extends React.Component {
               <h1>Find a qualified support worker who understand your needs.</h1>
               <h2>Support Categories</h2>
               <ul class="category-list">
-              {this.state.categories.map((category) => (
-                <li><CategoryItem key={category.id} category={category}/></li>
-              ))}
+                {this.state.categories.map((category) => (
+                  <CategoryItem key={category.id} category={category}/>
+                ))}
               </ul>
             </div>
         </Container>

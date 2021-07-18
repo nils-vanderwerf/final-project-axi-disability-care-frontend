@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import Registration from './Auth/Registration'
 import LoginForm from './Auth/LoginForm'
-import SplashPage from './splash_page/SplashPage'
+import CategoryList from './Categories/CategoryList'
 import { AppBar, Container, Button, Grid } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
@@ -33,12 +33,8 @@ export default class Home extends Component {
 
     render() {
         return (
-            <div>
-
-                <h1>Home</h1>
-                <h1>Status: {this.props.isLoggedIn}</h1>
-                {/* <button onClick={() => this.handleLogoutClick()}>Logout</button> */}
-                {this.props.isLoggedIn ? <h1>Display login link</h1> : <h1> Display logout link</h1>}<LoginForm handleSuccessfulAuth={this.handleSuccessfulAuth} />
+            <div className="splash-hero-containrr">
+                <CategoryList></CategoryList>
             </div>
         )
     }
