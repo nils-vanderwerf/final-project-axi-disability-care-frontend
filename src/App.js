@@ -6,15 +6,13 @@ import Home from './components/pages/Home'
 import Dashboard from './components/pages/Dashboard';
 import { AppBar, Container, Button } from '@material-ui/core';
 import { StyledButton, useStyles } from './styles/StyledButton';
-import Registration from './components/pages/Auth/Registration';
-import LoggedInNavBar from './components/Nav/loggedInNavBar';
-import LoggedOutNavBar from './components/Nav/loggedOutNavBar';
-import LoginForm from './components/pages/Auth/LoginForm';
-import Logout from './components/pages/Auth/Logout';
+import Registration from './components/pages/auth/Registration/Registration'
+import LoginForm from './components/pages/auth/loginForm';
+import Logout from './components/pages/auth/logout';
 import SplashPage from './components/pages/Categories/CategoryList'
-import NewTask from './components/Tasks/NewTask';
-import ConfirmTask from './components/Tasks/ConfirmTask';
-import MyTasks from './components/Tasks/MyTasks';
+import NewTask from './components/Tasks/newTask';
+import ConfirmTask from './components/Tasks/confirmTask';
+import MyTasks from './components/Tasks/myTasks';
 import UserAccount from './components/pages/User/Account';
 
 
@@ -78,8 +76,7 @@ class App extends Component {
 
 
 
-  render() {
-
+render() {
     return (
       <>
        <div className="page-content">
@@ -93,8 +90,8 @@ class App extends Component {
                     <Button className="dark-theme">Login</Button> 
                   </Link>
                   : 
-                  <Link to={ { pathname: '/login'} }>
-                  <button value="21">Login</button>
+                  <Link to={ { pathname: '/logout'} }>
+                    <Button className="dark-theme">Logout</Button> 
                   </Link> 
               }
               </Container>
@@ -136,10 +133,12 @@ class App extends Component {
                       loggedInStatus={this.state.loggedInStatus} 
                       />
                   )} />
+
                 <Route exact path='/confirm-task' component={ConfirmTask}/>
                 <Route exact path='/my-tasks' component={MyTasks} />
                 <Route exact path='/user-account' component={UserAccount} />
                 <Route exact path='/login' component={LoginForm} />
+                <Route exact path='/sign-up' component={Registration} />
 
               </Switch>
             </Router>

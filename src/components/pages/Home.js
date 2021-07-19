@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import Registration from './Auth/Registration'
-import LoginForm from './Auth/LoginForm'
+import Registration from './auth/Registration/Registration'
+import LoginForm from './auth/loginForm'
 import CategoryList from './Categories/CategoryList'
 import { AppBar, Container, Button, Grid } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import SupportWorkers from './User/SupportWorkers'
+import Carers from './User/Carers'
 
 export default class Home extends Component {
 
@@ -36,7 +36,7 @@ export default class Home extends Component {
         return (
             <div className="splash-hero-containrr">
                 {/* <CategoryList></CategoryList> */}
-                <SupportWorkers/>
+                <Carers/>
             </div>
         )
     }

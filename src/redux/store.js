@@ -5,10 +5,12 @@ import thunk from "redux-thunk";
 // import loginForm from "./reducers/loginForm";
 // import tasks from "./reducers/tasks";
 // import signUpForm from "./reducers/signUpForm";
-import userReducer from './users/userReducer'
+import fetchUserReducer from './users/fetchUsers/fetchUserReducer'
+import createUserReducer from "./users/auth/createUserReducer";
 
 const rootReducer = combineReducers({
-  user: userReducer
+  user: fetchUserReducer,
+  newUser: createUserReducer
   // users, //* stretch goal to add user page
   // categories
 });

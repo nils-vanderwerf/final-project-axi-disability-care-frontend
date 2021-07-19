@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { fetchUsers } from '../../../redux/users/userActions'
+import { fetchUsers } from '../../../redux/users/fetchUsers/fetchUserActions'
 import {Button} from '@material-ui/core'
 
-function SupportWorkers ({ userData, fetchUsers }) {
+const Carers = ({ userData, fetchUsers }) => {
   useEffect(() => {
     fetchUsers()
   }, [])
@@ -17,7 +17,7 @@ function SupportWorkers ({ userData, fetchUsers }) {
       <div>
         {
           userData.users.map(user => 
-          <div class="support_worker">
+          <div class="carer">
                 <h3>{user.first_name} {user.last_name} </h3>
                 <p><strong>Post Code</strong>: {user.zip_code}</p>
                 <p>{user.bio}</p>
@@ -46,4 +46,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SupportWorkers)
+)(Carers)

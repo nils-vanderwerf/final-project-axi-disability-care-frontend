@@ -3,7 +3,7 @@ import {
   FETCH_USERS_REQUEST,
   FETCH_USERS_SUCCESS,
   FETCH_USERS_FAILURE
-} from './userTypes'
+} from '../UserTypes'
 
 export const fetchUsers = () => {
   return (dispatch) => {
