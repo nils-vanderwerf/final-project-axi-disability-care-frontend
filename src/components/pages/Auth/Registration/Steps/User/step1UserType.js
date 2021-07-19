@@ -12,10 +12,9 @@ class Step1UserType extends Component {
 
 }
   render() {
-      const {value, currentStep, handleChange} = this.props
+      const {stateValues, currentCarerStep, currentParticipantStep, handleChange} = this.props
       // The markup for the Step 1 UI
-      if ( currentStep !== 1) {
-        console.log(`Step: ${currentStep}`)
+      if ( currentCarerStep !== 1 && currentParticipantStep !== 1 ) {
         return null
       }
         return (
@@ -23,17 +22,17 @@ class Step1UserType extends Component {
             <h3>Welcome!</h3>
             <p>How can we help you today?</p>
             <RadioGroup aria-label="How can we help you today?"
-              name="value.is_carer" value={value.isCarer} onChange={this.props.handleChange} required>
+              name="user_type" value={stateValues.user_type} onChange={handleChange} required>
               <FormControlLabel
-                name="is_carer"
-                control={<Radio />}
-                value="true"
+                name="user_type"
+                control={<Radio checked={stateValues.user_type === 'carer'} />}
+                value="carer"
                 label="I'm seeking support"
               />
               <FormControlLabel
-                name="is_carer"
-                control={<Radio />}
-                value="false"
+                name="user_type"
+                control={<Radio checked={stateValues.user_type === 'participant'} />}
+                value="participant"
                 label="I would like to provide support"
               />
             </RadioGroup>

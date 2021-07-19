@@ -16,35 +16,39 @@ import Step7NDISNumber from './Steps/Participant/step7NDISNumber';
 import Step8HourlyRate from './Steps/Carer/step8HourlyRate';
 import Step9Vehicle from './Steps/Carer/step9Vehicle';
 import { makeStyles } from "@material-ui/core/styles";
+import { string } from 'prop-types';
 
 
 class Registration extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            currentStep: 1,
+            currentCarerStep: 1,
+            currentParticipantStep: 1,
             user: {
-                is_carer: false,
+                user_type: "carer",
                 first_name: "",
                 last_name: "",
                 bio: "",
                 age: "",
                 gender: "",
                 address: {
-
+                    city: '',
+                    state: '',
+                    zip_code: ''
                 },
-                has_vehicle: false,
                 email: "",
                 hours_of_work: 15,
                 support_categories: [],
                 carer: {
                     hourly_rate: 50,
-                    first_aid_training: false,
-                    carer_number: 111111111
+                    first_aid_training: 'false',
+                    carer_number: 111111111,
+                    has_vehicle: 'false'
                 },
                 participant: {
                     disability: '',
-                    ndis: true,
+                    ndis: 'true',
                     ndis_number: 111111111
                 },
                 password: "",
@@ -56,6 +60,8 @@ class Registration extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+        this.handleAddressChange = this.handleAddressChange.bind(this);
+        // this.handleRadioChange = this.handleRadioChange.bind(this);
     }
 
     useStyles = makeStyles((theme) => ({
@@ -92,37 +98,45 @@ class Registration extends Component {
         })
     }
 
-    handleChange(event) {
-        const { user } = { ...this.state };
-        const currentState = user;
-        const { name, value } = event.target;
-        currentState[name] = value;
-      
-        this.setState({ user: currentState });
-    }
 
     _next = () => {
-        let currentStep = this.state.currentStep
-        currentStep = currentStep >= 2? 3: currentStep + 1
-        this.setState({
-          currentStep: currentStep
-        })
+        let currentParticipantStep = this.state.currentParticipantStep
+        let currentCarerStep = this.state.currentCarerStep
+        if (currentCarerStep < 9){
+            console.log(this.state.user.user_type)
+            this.setState({
+                currentCarerStep: currentCarerStep + 1
+            })
+        } 
+        if (currentParticipantStep < 7) {
+            console.log(!this.state.user.user_type)
+            this.setState({
+                currentParticipantStep: currentParticipantStep + 1
+            })
+        }
     }
         
     _prev = () => {
-        let currentStep = this.state.currentStep
-        currentStep = currentStep <= 1? 1: currentStep - 1
+        let currentParticipantStep = this.state.currentParticipantStep
+        let currentCarerStep = this.state.currentCarerStep
+        currentCarerStep = currentCarerStep <= 1 ? 1 : currentCarerStep - 1
+
+        currentParticipantStep = currentParticipantStep <= 1 ? 1 : currentParticipantStep - 1
+        
         this.setState({
-            currentStep: currentStep
+            currentParticipantStep: currentParticipantStep,
+            currentCarerStep: currentCarerStep
         })
     }
 
     previousButton() {
-    let currentStep = this.state.currentStep;
-    if(currentStep !==1){
+    let currentParticipantStep = this.state.currentParticipantStep
+    let currentCarerStep = this.state.currentCarerStep
+    if(currentParticipantStep !==1 && currentCarerStep !== 1 ){
         return (
         <Button
-            className="previous-button" 
+            className="previous-button"
+            variant="outlined"
             type="button" onClick={this._prev}>
         Previous
         </Button>
@@ -132,10 +146,11 @@ class Registration extends Component {
     }
     
     nextButton() {
-    let currentStep = this.state.currentStep;
-        console.log(this.state.user.is_carer)
-        if(currentStep < 9 && this.state.user.is_carer || 
-            currentStep < 7 && !this.state.user.is_carer ){
+        let currentParticipantStep = this.state.currentParticipantStep
+        let currentCarerStep = this.state.currentCarerStep
+        console.log(this.state.user.user_type)
+        if(currentCarerStep < 9 && this.state.user.user_type === "carer" || 
+            currentParticipantStep < 7 && this.state.user.user_type === "participant" ){
         return (
         <Button 
             className="next-button"
@@ -148,91 +163,141 @@ class Registration extends Component {
     }
     return null;
     }
-    
+    handleChange(event) {
+        const { user } = { ...this.state };
+        const currentState = user;
+        const { name, value } = event.target;
+        currentState[name] = value;
+      
+        this.setState({ user: currentState });
+    }
+
     handleCheckboxChange = event => {
-    let newArray = [...this.state.support_categories, event.target.name];
+        
+        let newArray = [...this.state.support_categories, event.target.name];
         if (this.state.support_categories.includes(event.target.name)) {
             newArray = newArray.filter
             (category => category !== event.target.name);
         }
     }
 
+    // handleRadioChange(event) {
+    //     const valueToBool = this.str2bool(event.target.value)
+    //     console.log("Val: ", valueToBool, typeof valueToBool);
+    //     const { user } = { ...this.state };
+    //     const currentState = user;
+    //     const { name, value } = event.target;
+    //     currentState[name] = valueToBool;
+    //     console.log(name, ",",currentState[name], typeof currentState[name])
+    //     this.setState({ user: currentState });
+    //     console.log("user_type", typeof this.state.user.user_type )
+    // }
+
+    //  str2bool = (value) => {
+    //     if (value && typeof value === "string") {
+    //          if (value.toLowerCase() === "true") return true;
+    //          if (value.toLowerCase() === "false") return false;
+    //     }
+    //     return value;
+    //  }
+
+
+    handleAddressChange = (event) => {
+        const { address } = { ...this.state.user };
+        console.log(address)
+        const currentState = address;
+        const { name, value } = event.target;
+        currentState[name] = value;
+        
+        this.setState({ address: currentState });
+      };
+
     render() {
         const { user } = this.state;
+        const { address } = this.state.user
         const { carer } = this.state.user
         const { participant } = this.state.user
+
         return (
             <Container>
                 <h1>Sign Up Form</h1>
-                <h2>Step {this.state.currentStep} </h2> 
+                
+                <h2>Step {this.state.user.user_type === "true" ? this.state.currentCarerStep : this.state.currentParticipantStep} </h2> 
         
                 <form onSubmit={this.handleSubmit}>
                     {/* 
                     render the form steps and pass required props in
                     */}
                     <Step1UserType
-                        currentStep={this.state.currentStep} 
+                        currentParticipantStep ={this.state.currentParticipantStep}
+                        currentCarerStep ={this.state.currentCarerStep} 
                         handleChange={this.handleChange}
-                        value={user}
+                        handleRadioChange={this.handleRadioChange}
+                        stateValues={user}
                     />
                     <Step2PersonalDetails 
-                        currentStep={this.state.currentStep} 
+                        currentParticipantStep ={this.state.currentParticipantStep}
+                        currentCarerStep ={this.state.currentCarerStep}  
                         handleChange={this.handleChange}
-                        value={user}
+                        stateValues={user}
                     />
                     <Step3Address 
-                        currentStep={this.state.currentStep} 
-                        handleChange={this.handleChange}
-                        value={user}
+                        currentParticipantStep ={this.state.currentParticipantStep}
+                        currentCarerStep ={this.state.currentCarerStep}  
+                        handleAddressChange={this.handleAddressChange}
+                        
+                        stateValues={user}
                     />
                     <Step4SupportCategoryDetails
-                        currentStep={this.state.currentStep} 
+                        currentParticipantStep ={this.state.currentParticipantStep}
+                        currentCarerStep ={this.state.currentCarerStep}   
                         handleChange={this.handleChange}
-                        value={user}
+                        stateValues={user}
                     />
                     <Step5Hours
-                        currentStep={this.state.currentStep} 
+                        currentParticipantStep ={this.state.currentParticipantStep}
+                        currentCarerStep ={this.state.currentCarerStep}  
                         handleChange={this.handleChange}
-                        value={user}
+                        stateValues={user}
                     />
-                    {this.state.user.is_carer === true ?
+                    {this.state.user.user_type === "carer" ?
                         <>
                             <Step6CarerVerification                     
-                                currentStep={this.state.currentStep} 
+                                currentCarerStep ={this.state.currentCarerStep}  
                                 handleChange={this.handleChange}
-                                value={carer}
+                                stateValues={carer}
                             />
                             <Step7FirstAid
-                                currentStep={this.state.currentStep} 
+                                currentCarerStep ={this.state.currentCarerStep}  
                                 handleChange={this.handleChange}
                                 
-                                value={carer}
+                                stateValues={carer}
                             />
                             <Step8HourlyRate
-                                currentStep={this.state.currentStep} 
+                                currentCarerStep ={this.state.currentCarerStep}  
                                 handleChange={this.handleChange}
                                 
-                                value={carer}
+                                stateValues={carer}
                             />
                             <Step9Vehicle
-                                currentStep={this.state.currentStep} 
+                                currentCarerStep ={this.state.currentCarerStep}  
                                 handleChange={this.handleRadioChange}
-                                value={carer}
+                                stateValues={carer}
                             />
                         </>
                         :
                         <>
                             <Step6DisabilityDetails
-                                currentStep={this.state.currentStep} 
+                                currentParticipantStep ={this.state.currentParticipantStep} 
                                 handleChange={this.handleChange}
                                 
-                                value={participant}
+                                stateValues={participant}
                             />
                             <Step7NDISNumber
-                                currentStep={this.state.currentStep} 
+                                currentParticipantStep ={this.state.currentParticipantStep} 
                                 handleChange={this.handleChange}
                                 
-                                value={participant}
+                                stateValues={participant}
                             />
                         </>
                     }

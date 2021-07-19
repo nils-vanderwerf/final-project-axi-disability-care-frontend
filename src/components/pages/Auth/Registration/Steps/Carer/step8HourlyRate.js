@@ -7,9 +7,8 @@ class Step8HourlyRate extends Component {
     
     }
     render() {
-        const {value, currentStep, handleChange} = this.props
-        if (currentStep !== 8) {
-            console.log(`Step: ${currentStep}`)
+        const {stateValues, currentCarerStep, handleChange} = this.props
+        if (currentCarerStep !== 8) {
             return null
         }
         return (
@@ -19,7 +18,7 @@ class Step8HourlyRate extends Component {
                     label="Hourly rate"
                     name="hourly_rate"
                     type="text"
-                    value={value.hourly_rate}
+                    value={stateValues.hourly_rate}
                     onChange={this.handleChange}
                     margin="normal"
                     variant="outlined"

@@ -13,25 +13,24 @@ class Step9Vehicle extends Component {
     
     }
     render() {
-        const {value, currentStep, handleChange} = this.props
-        if (currentStep !== 9 ) {
-            console.log(`Step: ${currentStep}`)
+        const {stateValues, currentCarerStep, handleChange} = this.props
+        if (currentCarerStep !== 9 ) {
             return null
         } 
         return (
             <Container>
                 <p>Do you have a vehicle? (You might be entitled to some vehicle allowance if you use your vehicle to transport your participant).</p>
                 <RadioGroup aria-label="Do you have a vehicle? " 
-                name="police_check" onChange={handleChange} required>
+                name="has_vehicle" onChange={handleChange} required>
                     <FormControlLabel 
                         name="vehicle"
-                        control={<Radio />}
+                        control={<Radio checked={stateValues.has_vehicle === 'true'} />}
                         value="true"
                         label="Yes"
                     />
                     <FormControlLabel 
                         name="vehicle"
-                        control={<Radio />}
+                        control={<Radio checked={stateValues.has_vehicle === 'false'} />}
                         value="false"
                         label="No"
                     />

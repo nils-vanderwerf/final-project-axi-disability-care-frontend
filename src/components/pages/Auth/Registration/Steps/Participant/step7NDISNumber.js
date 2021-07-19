@@ -14,9 +14,8 @@ class Step7NDISNumber extends Component {
     
     }
     render() {
-    const {value, currentStep, handleChange} = this.props
-        if (currentStep !== 7) {
-            console.log(`Step: ${currentStep}`)
+    const {value, currentParticipantStep, handleChange} = this.props
+        if (currentParticipantStep !== 7) {
             return null
         }
         return (

@@ -13,8 +13,8 @@ class Step2PersonalDetails extends Component {
     
     }
     render() {
-        const {value, currentStep, handleChange} = this.props
-        if (currentStep !== 2) {
+        const {stateValues, currentCarerStep, currentParticipantStep, handleChange} = this.props
+        if ( currentCarerStep !== 2 && currentParticipantStep !== 2 ) {
             return null
         }
 
@@ -27,7 +27,7 @@ class Step2PersonalDetails extends Component {
                         label="First Name"
                         name="first_name"
                         type="text"
-                        value={value.first_name}
+                        value={stateValues.first_name}
                         onChange={handleChange}
                         margin="normal"
                         variant="outlined"
@@ -36,7 +36,7 @@ class Step2PersonalDetails extends Component {
                     <TextField
                         label="Last Name"
                         name="last_name"
-                        value={value.last_name}
+                        value={stateValues.last_name}
                         onChange={handleChange}
                         margin="normal"
                         variant="outlined"
@@ -46,7 +46,7 @@ class Step2PersonalDetails extends Component {
                         label="Email"
                         name="email"
                         type="email"
-                        value={value.email}
+                        value={stateValues.email}
                         onChange={handleChange}
                         margin="normal"
                         variant="outlined"
@@ -56,7 +56,7 @@ class Step2PersonalDetails extends Component {
                         label="Password"
                         name="password"
                         type="password"
-                        value={value.password}
+                        value={stateValues.password}
                         onChange={handleChange}
                         margin="normal"
                         variant="outlined"
@@ -68,7 +68,7 @@ class Step2PersonalDetails extends Component {
                         name="password_confirmation"
                         type="password_confirmation"
                         type="password"
-                        value={value.password_confirmation}
+                        value={stateValues.password_confirmation}
                         onChange={handleChange}
                         margin="normal"
                         variant="outlined"
@@ -78,17 +78,7 @@ class Step2PersonalDetails extends Component {
                         label="Age"
                         name="age"
                         type="text"
-                        value={value.age}
-                        onChange={handleChange}
-                        margin="normal"
-                        variant="outlined"
-                        fullWidth />
-
-                    <TextField
-                        label="Zip COde"
-                        name="zip_code"
-                        type="text"
-                        value={value.zip_code}
+                        value={stateValues.age}
                         onChange={handleChange}
                         margin="normal"
                         variant="outlined"
@@ -97,7 +87,7 @@ class Step2PersonalDetails extends Component {
                     <h2>Gender</h2>
                     <RadioGroup component="fieldset" aria-label="Gender"
                         name="gender"
-                        value={value.gender}
+                        value={stateValues.gender}
                         onChange={handleChange}
                         defaultValue="other">
                         <FormControlLabel
@@ -127,7 +117,7 @@ class Step2PersonalDetails extends Component {
                         type="text"
                         multiline
                         rows={4}
-                        value={value.bio}
+                        value={stateValues.bio}
                         onChange={handleChange}
                         margin="normal"
                         variant="outlined"

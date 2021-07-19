@@ -7,25 +7,27 @@ class Step7FirstAid extends Component  {
     
     }
     render() {
-        const {value, currentStep, handleChange} = this.props
-        if (currentStep !== 7) {
-            console.log(`Step: ${currentStep}`)
+        const {stateValues, currentCarerStep, handleChange} = this.props
+        if (currentCarerStep !== 7) {
             return null
         }
         return (
         <Container>
             <h2>Do you have your first aid certificate?</h2>
             <RadioGroup aria-label="How can we help you today?"
-                name="first_aid_training" onChange={handleChange} required>
+                name="first_aid_training" 
+                onChange={handleChange} 
+                value={stateValues.first_aid_training} 
+                required>
                 <FormControlLabel
                     name="first_aid_training"
-                    control={<Radio />}
+                    control={<Radio checked={stateValues.first_aid_training === 'true'} />}
                     value="true"
                     label="Yes"
                 />
                 <FormControlLabel
                     name="first_aid_training"
-                    control={<Radio />}
+                    control={<Radio checked={stateValues.first_aid_training === 'false'} />}
                     value="false"
                     label="No"
                 />

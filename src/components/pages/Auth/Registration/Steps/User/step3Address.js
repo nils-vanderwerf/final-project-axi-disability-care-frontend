@@ -27,23 +27,23 @@ class Step3Address extends Component {
 
   }
   render() {
-    const {value, currentStep, handleAddressChange} = this.props
-    if (currentStep !== 3) {
-      console.log(`Step: ${currentStep}`)
+    const {stateValues, currentCarerStep, currentParticipantStep, handleAddressChange} = this.props
+    if (currentCarerStep !== 3 && currentParticipantStep !== 3 ) {
       return null
     } 
-
+    
     return (
       <Container>
+        
         <FormControl component="fieldset" className="address-form" fullWidth>
-          <h2>Step 3</h2>
+          <h3>Address</h3>
           <p>Where are you based?</p>
           <TextField
             label="City"
             id="city"
-            name="address.city"
+            name="city"
             type="text"
-            value={value.address.city}
+            value={stateValues.address.city}
             onChange={handleAddressChange}
             margin="normal"
             variant="outlined"
@@ -55,8 +55,8 @@ class Step3Address extends Component {
             <Select
               labelId="address-state"
               className="select"
-              name="values.address.state"
-              value={value.state}
+              name="state"
+              value={stateValues.address.state}
               onChange={handleAddressChange}
               fullWidth
               variant="outlined"
@@ -69,10 +69,9 @@ class Step3Address extends Component {
 
           <TextField
             label="Zip Code"
-            name="values.address.postcode"
             type="text"
-            name="postcode"
-            value={value.values.postcode}
+            name="zip_code"
+            value={stateValues.zip_code}
             onChange={handleAddressChange}
             margin="normal"
             variant="outlined"

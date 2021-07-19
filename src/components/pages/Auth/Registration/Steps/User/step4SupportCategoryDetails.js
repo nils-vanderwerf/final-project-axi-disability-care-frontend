@@ -14,14 +14,13 @@ class Step4SupportCategoryDetails extends Component {
   }
 
   render() {
-    const {value, currentStep, handleChange} = this.props
-    if (currentStep !== 4) {
-      console.log(`Step: ${currentStep}`)
+    const {value, currentCarerStep, currentParticipantStep, handleChange} = this.props
+    if (currentCarerStep !== 4 && currentParticipantStep !== 4 ) {
       return null
     }
     return (
       <Container>
-        <h1>Step 4</h1>
+        <h3>Support Categories</h3>
         <FormControl component="fieldset">
           <FormLabel component="legend">Support Categories</FormLabel>
 

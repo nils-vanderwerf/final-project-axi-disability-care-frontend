@@ -7,9 +7,8 @@ class Step6CarerVerification extends Component  {
         super(props)
     }
     render() {
-        const {value, currentStep, handleChange} = this.props
-        if (currentStep !== 6) {
-            console.log(`Step: ${currentStep}`)
+        const {stateValues, currentCarerStep, handleChange} = this.props
+        if (currentCarerStep !== 6) {
             return null
         }
         return (
@@ -23,7 +22,7 @@ class Step6CarerVerification extends Component  {
                     label="Carer Number"
                     name="carer_number"
                     type="text"
-                    value={value.carer_number}
+                    value={stateValues.carer_number}
                     onChange={handleChange}
                     margin="normal"
                     variant="outlined"
