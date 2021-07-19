@@ -121,11 +121,11 @@ class Registration extends Component {
     let currentStep = this.state.currentStep;
     if(currentStep !==1){
         return (
-        <button 
-            className="btn btn-secondary" 
+        <Button
+            className="previous-button" 
             type="button" onClick={this._prev}>
         Previous
-        </button>
+        </Button>
         )
     }
     return null;
@@ -133,10 +133,14 @@ class Registration extends Component {
     
     nextButton() {
     let currentStep = this.state.currentStep;
-        if(currentStep < 9 && this.state.is_carer == 'true' || 
-            currentStep < 7 && this.state.is_carer == 'false' ){
+        console.log(this.state.user.is_carer)
+        if(currentStep < 9 && this.state.user.is_carer || 
+            currentStep < 7 && !this.state.user.is_carer ){
         return (
-        <Button className="next-button" 
+        <Button 
+            className="next-button"
+            color="primary"
+            variant="contained" 
             type="button" onClick={this._next}>
             Next
         </Button>        
@@ -160,7 +164,7 @@ class Registration extends Component {
         return (
             <Container>
                 <h1>Sign Up Form</h1>
-                <p>Step {this.state.currentStep} </p> 
+                <h2>Step {this.state.currentStep} </h2> 
         
                 <form onSubmit={this.handleSubmit}>
                     {/* 

@@ -20,8 +20,8 @@ class Step1UserType extends Component {
       }
         return (
           <Container>
-            <h2>Welcome!</h2>
-            <h2>How can we help you today?</h2>
+            <h3>Welcome!</h3>
+            <p>How can we help you today?</p>
             <RadioGroup aria-label="How can we help you today?"
               name="value.is_carer" value={value.isCarer} onChange={this.props.handleChange} required>
               <FormControlLabel

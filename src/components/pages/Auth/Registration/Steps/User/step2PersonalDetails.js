@@ -20,7 +20,7 @@ class Step2PersonalDetails extends Component {
 
         return (
             <Container>
-                <h2>Personal details.</h2>
+                <h3>Personal details</h3>
                 <p>To get started, please enter some details</p>
                 <FormGroup className="personal details">
                     <TextField
