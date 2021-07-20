@@ -56,6 +56,7 @@ class App extends Component {
   }
 
   handleLogin(data) {
+    console.log(data)
     this.setState({
       loggedInStatus: "LOGGED_IN",
       user: data.user
@@ -73,9 +74,6 @@ class App extends Component {
     user: {}
   })
 }
-
-
-
 render() {
     return (
       <>

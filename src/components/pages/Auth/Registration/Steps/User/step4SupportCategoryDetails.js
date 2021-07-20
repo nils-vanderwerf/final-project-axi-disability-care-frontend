@@ -15,8 +15,8 @@ class Step4SupportCategoryDetails extends Component {
 
   render() {
     const { stateValues, currentCarerStep, currentParticipantStep, handleCheckBoxChange } = this.props
-    if ( (currentCarerStep !== 4 && stateValues.user_type == 'carer') 
-    || (currentParticipantStep !== 4 && stateValues.user_type == 'participant') ) {
+    if ((currentCarerStep !== 4 && stateValues.role == 'carer')
+      || (currentParticipantStep !== 4 && stateValues.role == 'participant')) {
       return null
     }
     return (
@@ -82,7 +82,7 @@ class Step4SupportCategoryDetails extends Component {
                   onChange={handleCheckBoxChange}
                   value="transport"
                   name="transport" />}
-              label="Transport"
+                  label="Transport"
             />
 
             <p>
@@ -97,7 +97,7 @@ class Step4SupportCategoryDetails extends Component {
                   onChange={handleCheckBoxChange}
                   value="out_and_about"
                   name="out_and_about" />}
-              label="Out and about"
+                  label="Out and about"
             />
             <p>
               Support to get out, take a class, exercise, volunteer or go to gatherings.
@@ -112,7 +112,7 @@ class Step4SupportCategoryDetails extends Component {
                   id="7"
                   value="therapy"
                   name="therapy" />}
-              label="Therapy"
+                  label="Therapy"
             />
             <p>
               Disability support workers can help with support to plan, practice, and enjoy your therapy.
@@ -124,7 +124,7 @@ class Step4SupportCategoryDetails extends Component {
               <li>Occupational therapy</li>
               <li>Hydrotherapy</li>
               <li>Exercise physiology</li>
-              <li>Counselling</li>`
+              <li>Counselling</li>
             </ul>
 
             <FormControlLabel
@@ -134,25 +134,25 @@ class Step4SupportCategoryDetails extends Component {
                   onChange={handleCheckBoxChange}
                   value="specialised"
                   name="specialised" />}
-                  label="Specialised (Complex)"
+              label="Specialised (Complex)"
             />
             <p>
               May include but not limited to:
             </p>
 
             <ul>
-                <li>Manual Handling (lifting, hoisting, transfers).</li>
-                <li>Anaphylaxis.</li>
-                <li>Allergies.</li>
-                <li>Epilepsy/Seizure Management.</li>
-                <li>PEG/Enteral Feeding.</li>
-                <li>Catheter Care.</li>
-                <li>Medication Management.</li>
-                <li>Mealtime Management.</li>
-                <li>Swallow/Nutrition.</li>
-                <li>Bowel Care.</li>
-                <li>Diabetes Management.</li>
-                <li>Positive Behaviour Support.</li>
+              <li>Manual Handling (lifting, hoisting, transfers).</li>
+              <li>Anaphylaxis.</li>
+              <li>Allergies.</li>
+              <li>Epilepsy/Seizure Management.</li>
+              <li>PEG/Enteral Feeding.</li>
+              <li>Catheter Care.</li>
+              <li>Medication Management.</li>
+              <li>Mealtime Management.</li>
+              <li>Swallow/Nutrition.</li>
+              <li>Bowel Care.</li>
+              <li>Diabetes Management.</li>
+              <li>Positive Behaviour Support.</li>
             </ul>
 
           </FormGroup>

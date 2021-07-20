@@ -10,8 +10,8 @@ class ReviewStep extends Component {
 
     render() {
         const { stateValues, currentCarerStep, currentParticipantStep } = this.props
-        if ((currentCarerStep != 10 && stateValues.user_type == 'carer')
-            || (currentParticipantStep != 8 && stateValues.user_type == 'participant')) {
+        if ((currentCarerStep !== 10 && stateValues.role == 'carer')
+            || (currentParticipantStep !== 8 && stateValues.role == 'participant')) {
             return null
         }
         return (
@@ -50,7 +50,7 @@ class ReviewStep extends Component {
                         <p><strong>Zip Code</strong>{stateValues.zip_code}</p>
                     </li>
 
-                    {stateValues.user_type = 'carer' ?
+                    {stateValues.user_type === 'carer' ?
 
                         <li class="review-item">
                             <p><strong>Preferred number of hours of work: </strong>{stateValues.hours_of_work}</p>
@@ -65,7 +65,7 @@ class ReviewStep extends Component {
                         <p><strong>Support categories</strong>
                             <ul className="support_categories">
                                 {
-                                    stateValues.support_categories.map(cat => {
+                                    stateValues.categories.map(cat => {
                                         <li class="review-item">{cat}</li>
                                     })
                                 }
@@ -73,7 +73,7 @@ class ReviewStep extends Component {
                         </p>
                     </li>
 
-                    {stateValues.user_type = 'carer' ?
+                    {stateValues.user_type === 'carer' ?
                     <>
                       <li class="review-item">
                            <p><strong>Preferred number of hours with your support worker: </strong>{stateValues.hourly_rate}</p>

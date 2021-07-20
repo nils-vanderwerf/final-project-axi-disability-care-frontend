@@ -28,7 +28,7 @@ class Registration extends Component {
             currentParticipantStep: 1,
             editStep: 1,
             user: {
-                user_type: "carer",
+                role: "carer",
                 first_name: "",
                 last_name: "",
                 bio: "",
@@ -50,7 +50,7 @@ class Registration extends Component {
                 password: "",
                 password_confirmation: ""
             },
-            registrationErrors: ""
+            submitResponse: ''
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -77,35 +77,40 @@ class Registration extends Component {
     }));
 
     handleSubmit(event) {
-        const { user } = { ...this.state };
         event.preventDefault()
+        const { user } = { ...this.state};
+
+        // user.role = "carer"
+        console.log("User Type", user.role, user.role[0])
         axios.post('http://localhost:3001/api/v1/registrations', {
-            user: user
+            user
         },
             { withCredentials: true }
-        ).
-            then(response => {
-                if (response.data.status === 'created') {
-                    this.props.handleSuccessfulAuth(response.data);
-                }
-            })
-            .catch(error => {
-                console.log("registration error", error)
-            })
-    }
+        )
+        .then(response => {
+            console.log("response", response)
+            if (response.data.status === 'created') {
+                console.log(response.data)
+                this.props.handleSuccessfulAuth(response.data);
+            }
+        })
+        .catch(error => {
+            console.log("registration error", error, user)
+        })
+}
 
 
     _next = () => {
         let currentParticipantStep = this.state.currentParticipantStep
         let currentCarerStep = this.state.currentCarerStep
-        if (currentCarerStep < 10 && this.state.user.user_type == 'carer') {
-            console.log(this.state.user.user_type)
+        if (currentCarerStep < 10 && this.state.user.role == 'carer') {
+            console.log(this.state.user.role)
             this.setState({
                 currentCarerStep: currentCarerStep + 1
             })
         }
-        if (currentParticipantStep < 8 && this.state.user.user_type == 'participant') {
-            console.log(!this.state.user.user_type)
+        if (currentParticipantStep < 8 && this.state.user.role == 'participant') {
+            console.log(!this.state.user.role)
             this.setState({
                 currentParticipantStep: currentParticipantStep + 1
             })
@@ -144,9 +149,9 @@ class Registration extends Component {
     nextButton() {
         let currentParticipantStep = this.state.currentParticipantStep
         let currentCarerStep = this.state.currentCarerStep
-        console.log(this.state.user.user_type)
-        if (currentCarerStep < 10 && this.state.user.user_type === "carer" ||
-            currentParticipantStep < 8 && this.state.user.user_type === "participant") {
+        console.log(this.state.user.role)
+        if (currentCarerStep < 10 && this.state.user.role === "carer" ||
+            currentParticipantStep < 8 && this.state.user.role === "participant") {
             return (
                 <Button
                     className="next-button"
@@ -172,6 +177,7 @@ class Registration extends Component {
         const currentState = user;
         const { name, value } = event.target;
         currentState[name] = value;
+        console.log("radio value", value)
 
         this.setState({ 
             user: currentState 
@@ -206,7 +212,7 @@ class Registration extends Component {
     //     currentState[name] = valueToBool;
     //     console.log(name, ",",currentState[name], typeof currentState[name])
     //     this.setState({ user: currentState });
-    //     console.log("user_type", typeof this.state.user.user_type )
+    //     console.log("role", typeof this.state.user.role )
     // }
 
     //  str2bool = (value) => {
@@ -228,7 +234,7 @@ class Registration extends Component {
     // };
 
     returnToEditPage() {
-        if (this.state.user_type === 'carer') {
+        if (this.state.role === 'carer') {
             this.setState({
                 currentCarerStep: this.state.editStep,
             })
@@ -248,7 +254,7 @@ class Registration extends Component {
             <Container>
                 <h1>Sign Up Form</h1>
 
-                <h2>Step {this.state.user.user_type === "carer" ? this.state.currentCarerStep : this.state.currentParticipantStep} </h2>
+                <h2>Step {this.state.user.role === "carer" ? this.state.currentCarerStep : this.state.currentParticipantStep} </h2>
 
                 <form onSubmit={this.handleSubmit}>
                     {/* 
@@ -273,7 +279,8 @@ class Registration extends Component {
                         stateValues={user}
                     />
                     <Step4SupportCategoryDetails
-                        currentParticipantStep={this.state.currentParticipantStep}
+                        currentParticipantStep=
+                        {this.state.currentParticipantStep}
                         currentCarerStep={this.state.currentCarerStep}
                         handleCheckBoxChange={this.handleCheckBoxChange}
                         stateValues={user}
@@ -284,7 +291,7 @@ class Registration extends Component {
                         handleChange={this.handleChange}
                         stateValues={user}
                     />
-                    {this.state.user.user_type === "carer" ?
+                    {this.state.user.role === "carer" ?
                         <>
                             <Step6CarerVerification
                                 currentCarerStep={this.state.currentCarerStep}

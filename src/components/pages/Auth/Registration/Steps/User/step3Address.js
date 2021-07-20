@@ -28,8 +28,8 @@ class Step3Address extends Component {
   }
   render() {
     const {stateValues, currentCarerStep, currentParticipantStep, handleChange} = this.props
-    if ( (currentCarerStep !== 3 && stateValues.user_type == 'carer') 
-    || (currentParticipantStep !== 3 && stateValues.user_type == 'participant') ) {
+    if ( (currentCarerStep !== 3 && stateValues.role == 'carer') 
+    || (currentParticipantStep !== 3 && stateValues.role == 'participant') ) {
       return null
     } 
     
