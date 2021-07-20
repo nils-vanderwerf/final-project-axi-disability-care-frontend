@@ -34,12 +34,12 @@ class Registration extends Component {
                 bio: "",
                 age: "",
                 gender: "",
-                city: '',
-                state: '',
-                zip_code: '',
+                city: "",
+                state: "",
+                zip_code: "",
                 email: "",
                 hours_of_work: 15,
-                support_categories: [],
+                categories: [],
                 hourly_rate: 50,
                 first_aid_training: 'false',
                 carer_number: null,
@@ -95,9 +95,10 @@ class Registration extends Component {
             }
         })
         .catch(error => {
-            console.log("registration error", error, user)
+            console.log("registration error", error,)
         })
 }
+
 
 
     _next = () => {
@@ -189,14 +190,14 @@ class Registration extends Component {
         const { user } = { ...this.state };
         const currentState = user;
         const { name, value } = event.target;
-        let newArray = [...this.state.user.support_categories, event.target.name];
+        let newArray = [...this.state.user.categories, event.target.name];
         
-        if (this.state.user.support_categories.includes(event.target.name)) {
+        if (this.state.user.categories.includes(event.target.name)) {
           newArray = newArray.filter
           (category => category !== event.target.name);
         }
         (console.log(newArray))
-        currentState.support_categories = newArray
+        currentState.categories = newArray
 
         this.setState({
             user: currentState
