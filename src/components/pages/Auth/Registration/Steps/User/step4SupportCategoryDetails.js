@@ -23,7 +23,6 @@ class Step4SupportCategoryDetails extends Component {
       <Container>
         <h3>Support Categories</h3>
         <FormControl component="fieldset">
-          <FormLabel component="legend">Support Categories</FormLabel>
 
           <FormGroup>
             <FormControlLabel

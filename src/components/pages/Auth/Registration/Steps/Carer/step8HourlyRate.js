@@ -19,7 +19,7 @@ class Step8HourlyRate extends Component {
                     name="hourly_rate"
                     type="text"
                     value={stateValues.hourly_rate}
-                    onChange={this.handleChange}
+                    onChange={handleChange}
                     margin="normal"
                     variant="outlined"
                     fullWidth />

@@ -40,11 +40,11 @@ class Registration extends Component {
                 support_categories: [],
                 hourly_rate: 50,
                 first_aid_training: 'false',
-                carer_number: 111111111,
+                carer_number: null,
                 has_vehicle: 'false',
                 disability: '',
                 ndis: 'true',
-                ndis_number: 111111111,
+                ndis_number: null,
                 password: "",
                 password_confirmation: ""
             },
@@ -168,16 +168,6 @@ class Registration extends Component {
         });
     }
 
-    // handleCarerChange(event) {
-    //     const { carer } = { ...this.state.carer };
-    //     const currentState = carer;
-    //     const { name, value } = event.target;
-    //     currentState[name] = value;
-
-    //     this.setState({ carer: currentState });
-    // }
-
-
 
     handleCheckBoxChange = event => {
         const { user } = { ...this.state };
@@ -268,14 +258,14 @@ class Registration extends Component {
                     <Step5Hours
                         currentParticipantStep={this.state.currentParticipantStep}
                         currentCarerStep={this.state.currentCarerStep}
-                        handleCheckboxChange={this.handleCheckboxChange}
+                        handleChange={this.handleChange}
                         stateValues={user}
                     />
                     {this.state.user.user_type === "carer" ?
                         <>
                             <Step6CarerVerification
                                 currentCarerStep={this.state.currentCarerStep}
-                                handleNestedChange={this.handleNestedChange}
+                                handleChange={this.handleChange}
                                 stateValues={user}
                             />
                             <Step7FirstAid
@@ -285,13 +275,12 @@ class Registration extends Component {
                             />
                             <Step8HourlyRate
                                 currentCarerStep={this.state.currentCarerStep}
-                                handleNestedChange={this.handleNestedChange}
-
+                                handleChange={this.handleChange}
                                 stateValues={user}
                             />
                             <Step9Vehicle
                                 currentCarerStep={this.state.currentCarerStep}
-                                handleNestedChange={this.handleNestedChange}
+                                handleChange={this.handleChange}
                                 stateValues={user}
                             />
                         </>
@@ -299,14 +288,12 @@ class Registration extends Component {
                         <>
                             <Step6DisabilityDetails
                                 currentParticipantStep={this.state.currentParticipantStep}
-                                handleNestedChange={this.handleNestedChange}
-
+                                handleChange={this.handleChange}
                                 stateValues={user}
                             />
                             <Step7NDISNumber
                                 currentParticipantStep={this.state.currentParticipantStep}
-                                handleNestedChange={this.handleNestedChange}
-
+                                handleChange={this.handleChange}
                                 stateValues={user}
                             />
                         </>
