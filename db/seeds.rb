@@ -117,48 +117,51 @@
 #     description: "May include but not limited to: Manual Handling (lifting, hoisting, transfers), Anaphylaxis. Allergies Epilepsy/Seizure Management. PEG/Enteral Feeding. Catheter Care. Medication Management. Mealtime Management. Swallow/Nutrition. Bowel Care. Diabetes Management. Positive Behaviour Support."
 # )
 
-Task.create!(
-    name: 'Help around the home',
-    description: 'Vacuuming, sweeping and mopping the floors, cleaning the bathroom and kitchen, changing the sheets on your bed, and dusting and wiping down surfaces.',
-    task_date: '2021-08-24',
-    task_start_time: '15:30',
-    approved: false,
-    # client_id: 1,
-    # category_id: 1,
-    completed: false
+# Task.create!(
+#     name: 'Help around the home',
+#     description: 'Vacuuming, sweeping and mopping the floors, cleaning the bathroom and kitchen, changing the sheets on your bed, and dusting and wiping down surfaces.',
+#     task_date: '2021-08-24',
+#     task_start_time: '15:30',
+#     approved: false,
+#     # client_id: 1,
+#     # category_id: 1,
+#     completed: false
 
-)
+# )
 
-Task.create!(
-    name: 'Help around the home',
-    description: "Looking for a friendly support worker to help me move next weekend or anytime between the  20th -24th of Feb (weekend ideally, but I don't have a place lined up yet!)",
-    task_date: '2021-08-24',
-    task_start_time: '10:00',
-    approved: false,
-    completed: false,
-)
+# Task.create!(
+#     name: 'Help around the home',
+#     description: "Looking for a friendly support worker to help me move next weekend or anytime between the  20th -24th of Feb (weekend ideally, but I don't have a place lined up yet!)",
+#     task_date: '2021-08-24',
+#     task_start_time: '10:00',
+#     approved: false,
+#     completed: false,
+# )
 
-Task.create!(
-    name: 'Mowing Lawn',
-    description: "Lawn is getting very long - I need someone to help me mow it",
-    task_date: '2021-07-23',
-    task_start_time: '11:00',
-    # client_id: 2,
-    # category_id: 4,
-    approved: false,
-    completed: false
-)
+# Task.create!(
+#     name: 'Mowing Lawn',
+#     description: "Lawn is getting very long - I need someone to help me mow it",
+#     task_date: '2021-07-23',
+#     task_start_time: '11:00',
+#     # client_id: 2,
+#     # category_id: 4,
+#     approved: false,
+#     completed: false
+# )
 
-Task.create!(
-    name: 'Organization',
-    description: "Help with study and organizing my things",
-    task_date: '2021-07-18',
-    task_start_time: '11:00',
-    # # client_id: 2,
-    # category_id: 3,
-    approved: true,
-    completed: false
-)
+# Task.create!(
+#     name: 'Organization',
+#     description: "Help with study and organizing my things",
+#     task_date: '2021-07-18',
+#     task_start_time: '11:00',
+#     # # client_id: 2,
+#     # category_id: 3,
+#     approved: true,
+#     completed: false
+# )
+
+Role.create!(name: 'carer')
+Role.create!(name: 'participant')
 
 
 

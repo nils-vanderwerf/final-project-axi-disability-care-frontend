@@ -15,12 +15,15 @@ class User < ApplicationRecord
     foreign_key: :carer_id,
     class_name: :Task
 
-    has_many :clients,
+    has_many :participants,
     through: :hired_tasks,
     source: :user
 
+    belongs_to :city
+    belongs_to :role
 
-
+    accepts_nested_attributes_for :city
+    accepts_nested_attributes_for :category
 
     # def authenticate(plaintext_password)
     #     if BCrypt::Password.new(self.password_digest) == plaintext_password

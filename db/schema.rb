@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_17_030103) do
+ActiveRecord::Schema.define(version: 2021_07_20_080442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,6 +18,22 @@ ActiveRecord::Schema.define(version: 2021_07_17_030103) do
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.string "city"
+    t.string "state"
+    t.string "zip_code"
+    t.index ["user_id"], name: "index_cities_on_user_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -56,6 +72,12 @@ ActiveRecord::Schema.define(version: 2021_07_17_030103) do
     t.boolean "background_check", default: false
     t.boolean "first_aid_training", default: false
     t.integer "hourly_rate", default: 50
+    t.bigint "role_id"
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_users_on_category_id"
+    t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "users", "categories"
+  add_foreign_key "users", "roles"
 end
