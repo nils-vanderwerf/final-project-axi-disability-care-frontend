@@ -45,7 +45,7 @@ class Step4SupportCategoryDetails extends Component {
                   onChange={handleCheckBoxChange}
                   value="personal_care"
                   name="personal_care" />}
-              label="Personal Care"
+                  label="Personal Care"
             />
             <p>
               Things like showering, toileting and mealtime assistance at home or in the community.
@@ -56,7 +56,7 @@ class Step4SupportCategoryDetails extends Component {
               control={<Checkbox
                 onChange={handleCheckBoxChange}
                 value="education_and_employment" name="education_and_employment" />}
-              label="Education and employment"
+                label="Education and employment"
             />
             <p>
               Coaching to help you achieve your goals at school, college or work.

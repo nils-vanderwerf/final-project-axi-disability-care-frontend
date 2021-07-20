@@ -56,7 +56,7 @@ class App extends Component {
   }
 
   handleLogin(data) {
-    console.log(data)
+    console.log("The data I'm trying to pass:", data)
     this.setState({
       loggedInStatus: "LOGGED_IN",
       user: data.user
