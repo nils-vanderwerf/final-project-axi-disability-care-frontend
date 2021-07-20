@@ -17,6 +17,7 @@ import Step8HourlyRate from './Steps/Carer/step8HourlyRate';
 import Step9Vehicle from './Steps/Carer/step9Vehicle';
 import { makeStyles } from "@material-ui/core/styles";
 import { string } from 'prop-types';
+import ReviewStep from './ReviewStep';
 
 
 class Registration extends Component {
@@ -25,6 +26,7 @@ class Registration extends Component {
         this.state = {
             currentCarerStep: 1,
             currentParticipantStep: 1,
+            editStep: 1,
             user: {
                 user_type: "carer",
                 first_name: "",
@@ -96,13 +98,13 @@ class Registration extends Component {
     _next = () => {
         let currentParticipantStep = this.state.currentParticipantStep
         let currentCarerStep = this.state.currentCarerStep
-        if (currentCarerStep < 9 && this.state.user.user_type == 'carer') {
+        if (currentCarerStep < 10 && this.state.user.user_type == 'carer') {
             console.log(this.state.user.user_type)
             this.setState({
                 currentCarerStep: currentCarerStep + 1
             })
         }
-        if (currentParticipantStep < 7 && this.state.user.user_type == 'participant') {
+        if (currentParticipantStep < 8 && this.state.user.user_type == 'participant') {
             console.log(!this.state.user.user_type)
             this.setState({
                 currentParticipantStep: currentParticipantStep + 1
@@ -143,8 +145,8 @@ class Registration extends Component {
         let currentParticipantStep = this.state.currentParticipantStep
         let currentCarerStep = this.state.currentCarerStep
         console.log(this.state.user.user_type)
-        if (currentCarerStep < 9 && this.state.user.user_type === "carer" ||
-            currentParticipantStep < 7 && this.state.user.user_type === "participant") {
+        if (currentCarerStep < 10 && this.state.user.user_type === "carer" ||
+            currentParticipantStep < 8 && this.state.user.user_type === "participant") {
             return (
                 <Button
                     className="next-button"
@@ -155,7 +157,15 @@ class Registration extends Component {
                 </Button>
             )
         }
-        return null;
+        return (
+            <Button
+                className="next-button"
+                color="primary"
+                variant="contained"
+                type="button" onClick={this.handleSubmit}>
+                Submit
+            </Button>
+        )
     }
     handleChange(event) {
         const { user } = { ...this.state };
@@ -216,6 +226,19 @@ class Registration extends Component {
 
     //     this.setState({ address: currentState });
     // };
+
+    returnToEditPage() {
+        if (this.state.user_type === 'carer') {
+            this.setState({
+                currentCarerStep: this.state.editStep,
+            })
+        }
+        else {
+            this.setState({
+                currentParticipantStep: this.state.editStep,
+            })  
+        }
+    }
 
     render() {
         const { user } = this.state;
@@ -298,6 +321,11 @@ class Registration extends Component {
                             />
                         </>
                     }
+                    <ReviewStep 
+                        stateValues={user}
+                        returnToEditPage={this.returnToEditPage}
+                        currentCarerStep={this.state.currentCarerStep}
+                        currentParticipantStep={this.state.currentParticipantStep}/>
 
                     {this.previousButton()}
                     {this.nextButton()}
