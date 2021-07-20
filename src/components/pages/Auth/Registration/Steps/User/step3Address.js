@@ -27,7 +27,7 @@ class Step3Address extends Component {
 
   }
   render() {
-    const {stateValues, currentCarerStep, currentParticipantStep, handleAddressChange} = this.props
+    const {stateValues, currentCarerStep, currentParticipantStep, handleChange} = this.props
     if ( (currentCarerStep !== 3 && stateValues.user_type == 'carer') 
     || (currentParticipantStep !== 3 && stateValues.user_type == 'participant') ) {
       return null
@@ -44,8 +44,8 @@ class Step3Address extends Component {
             id="city"
             name="city"
             type="text"
-            value={stateValues.address.city}
-            onChange={handleAddressChange}
+            value={stateValues.city}
+            onChange={handleChange}
             margin="normal"
             variant="outlined"
             fullWidth
@@ -57,13 +57,13 @@ class Step3Address extends Component {
               labelId="address-state"
               className="select"
               name="state"
-              value={stateValues.address.state}
-              onChange={handleAddressChange}
+              value={stateValues.state}
+              onChange={handleChange}
               fullWidth
               variant="outlined"
             >
               {states.map(([value, name]) => (
-                <MenuItem value={value.value}>{name}</MenuItem>
+                <MenuItem value={value} key={value}>{name}</MenuItem>
               ))}
             </Select>
           </div>
@@ -73,7 +73,7 @@ class Step3Address extends Component {
             type="text"
             name="zip_code"
             value={stateValues.zip_code}
-            onChange={handleAddressChange}
+            onChange={handleChange}
             margin="normal"
             variant="outlined"
             fullWidth

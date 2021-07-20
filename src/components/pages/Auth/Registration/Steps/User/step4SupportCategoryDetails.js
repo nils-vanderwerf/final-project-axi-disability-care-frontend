@@ -15,7 +15,8 @@ class Step4SupportCategoryDetails extends Component {
 
   render() {
     const { stateValues, currentCarerStep, currentParticipantStep, handleCheckBoxChange } = this.props
-    if (currentCarerStep !== 4 && currentParticipantStep !== 4) {
+    if ( (currentCarerStep !== 4 && stateValues.user_type == 'carer') 
+    || (currentParticipantStep !== 4 && stateValues.user_type == 'participant') ) {
       return null
     }
     return (
@@ -66,10 +67,10 @@ class Step4SupportCategoryDetails extends Component {
               control={
                 <Checkbox
                   id="4"
-                  onChange={this.handleCheckBoxChange}
+                  onChange={handleCheckBoxChange}
                   value="in_home_care"
                   name="in_home_care" />}
-              label="In home care"
+                  label="In home care"
             />
             <p>
               Help with morning and evening routines, sweeping, mopping, dishes, medical prompts, and meal preparation.
@@ -94,7 +95,7 @@ class Step4SupportCategoryDetails extends Component {
               control={
                 <Checkbox
                   id="6"
-                  onChange={this.handleCheckBoxChange}
+                  onChange={handleCheckBoxChange}
                   value="out_and_about"
                   name="out_and_about" />}
               label="Out and about"
@@ -108,7 +109,7 @@ class Step4SupportCategoryDetails extends Component {
             <FormControlLabel
               control={
                 <Checkbox
-                  onChange={this.handleCheckBoxChange}
+                  onChange={handleCheckBoxChange}
                   id="7"
                   value="therapy"
                   name="therapy" />}
@@ -131,17 +132,28 @@ class Step4SupportCategoryDetails extends Component {
               control={
                 <Checkbox
                   id="8"
-                  onChange={this.handleCheckBoxChange}
+                  onChange={handleCheckBoxChange}
                   value="specialised"
                   name="specialised" />}
-              label="Specialised (Complex)"
+                  label="Specialised (Complex)"
             />
             <p>
               May include but not limited to:
             </p>
 
             <ul>
-
+                <li>Manual Handling (lifting, hoisting, transfers).</li>
+                <li>Anaphylaxis.</li>
+                <li>Allergies.</li>
+                <li>Epilepsy/Seizure Management.</li>
+                <li>PEG/Enteral Feeding.</li>
+                <li>Catheter Care.</li>
+                <li>Medication Management.</li>
+                <li>Mealtime Management.</li>
+                <li>Swallow/Nutrition.</li>
+                <li>Bowel Care.</li>
+                <li>Diabetes Management.</li>
+                <li>Positive Behaviour Support.</li>
             </ul>
 
           </FormGroup>

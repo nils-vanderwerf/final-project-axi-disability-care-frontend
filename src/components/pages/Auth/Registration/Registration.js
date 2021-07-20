@@ -32,25 +32,19 @@ class Registration extends Component {
                 bio: "",
                 age: "",
                 gender: "",
-                address: {
-                    city: '',
-                    state: '',
-                    zip_code: ''
-                },
+                city: '',
+                state: '',
+                zip_code: '',
                 email: "",
                 hours_of_work: 15,
                 support_categories: [],
-                carer: {
-                    hourly_rate: 50,
-                    first_aid_training: 'false',
-                    carer_number: 111111111,
-                    has_vehicle: 'false'
-                },
-                participant: {
-                    disability: '',
-                    ndis: 'true',
-                    ndis_number: 111111111
-                },
+                hourly_rate: 50,
+                first_aid_training: 'false',
+                carer_number: 111111111,
+                has_vehicle: 'false',
+                disability: '',
+                ndis: 'true',
+                ndis_number: 111111111,
                 password: "",
                 password_confirmation: ""
             },
@@ -60,8 +54,8 @@ class Registration extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
-        this.handleAddressChange = this.handleAddressChange.bind(this);
-        // this.handleRadioChange = this.handleRadioChange.bind(this);
+        // this.handleNestedChange = this.handleNestedChange.bind(this);
+        // // this.handleRadioChange = this.handleRadioChange.bind(this);
     }
 
     useStyles = makeStyles((theme) => ({
@@ -169,15 +163,38 @@ class Registration extends Component {
         const { name, value } = event.target;
         currentState[name] = value;
 
-        this.setState({ user: currentState });
+        this.setState({ 
+            user: currentState 
+        });
     }
 
+    // handleCarerChange(event) {
+    //     const { carer } = { ...this.state.carer };
+    //     const currentState = carer;
+    //     const { name, value } = event.target;
+    //     currentState[name] = value;
+
+    //     this.setState({ carer: currentState });
+    // }
+
+
+
     handleCheckBoxChange = event => {
-        let newArray = [...this.state.support_categories, event.target.name];
-        if (this.state.support_categories.includes(event.target.name)) {
-            newArray = newArray.filter
-                (category => category !== event.target.name);
+        const { user } = { ...this.state };
+        const currentState = user;
+        const { name, value } = event.target;
+        let newArray = [...this.state.user.support_categories, event.target.name];
+        
+        if (this.state.user.support_categories.includes(event.target.name)) {
+          newArray = newArray.filter
+          (category => category !== event.target.name);
         }
+        (console.log(newArray))
+        currentState.support_categories = newArray
+
+        this.setState({
+            user: currentState
+        });
     }
 
     // handleRadioChange(event) {
@@ -201,21 +218,18 @@ class Registration extends Component {
     //  }
 
 
-    handleAddressChange = (event) => {
-        const { address } = { ...this.state.user };
-        console.log(address)
-        const currentState = address;
-        const { name, value } = event.target;
-        currentState[name] = value;
+    // handleNestedChange = (event) => {
+    //     const {name, value} = event.target
+    //     console.log(name)
+    //     const currentState = address;
+    //     currentState[name] = value;
 
-        this.setState({ address: currentState });
-    };
+    //     this.setState({ address: currentState });
+    // };
 
     render() {
         const { user } = this.state;
-        const { address } = this.state.user
-        const { carer } = this.state.user
-        const { participant } = this.state.user
+
 
         return (
             <Container>
@@ -231,7 +245,6 @@ class Registration extends Component {
                         currentParticipantStep={this.state.currentParticipantStep}
                         currentCarerStep={this.state.currentCarerStep}
                         handleChange={this.handleChange}
-                        handleRadioChange={this.handleRadioChange}
                         stateValues={user}
                     />
                     <Step2PersonalDetails
@@ -243,7 +256,7 @@ class Registration extends Component {
                     <Step3Address
                         currentParticipantStep={this.state.currentParticipantStep}
                         currentCarerStep={this.state.currentCarerStep}
-                        handleAddressChange={this.handleAddressChange}
+                        handleChange={this.handleChange}
                         stateValues={user}
                     />
                     <Step4SupportCategoryDetails
@@ -255,47 +268,46 @@ class Registration extends Component {
                     <Step5Hours
                         currentParticipantStep={this.state.currentParticipantStep}
                         currentCarerStep={this.state.currentCarerStep}
-                        handleChange={this.handleChange}
+                        handleCheckboxChange={this.handleCheckboxChange}
                         stateValues={user}
                     />
                     {this.state.user.user_type === "carer" ?
                         <>
                             <Step6CarerVerification
                                 currentCarerStep={this.state.currentCarerStep}
-                                handleChange={this.handleChange}
-                                stateValues={carer}
+                                handleNestedChange={this.handleNestedChange}
+                                stateValues={user}
                             />
                             <Step7FirstAid
                                 currentCarerStep={this.state.currentCarerStep}
                                 handleChange={this.handleChange}
-
-                                stateValues={carer}
+                                stateValues={user}
                             />
                             <Step8HourlyRate
                                 currentCarerStep={this.state.currentCarerStep}
-                                handleChange={this.handleChange}
+                                handleNestedChange={this.handleNestedChange}
 
-                                stateValues={carer}
+                                stateValues={user}
                             />
                             <Step9Vehicle
                                 currentCarerStep={this.state.currentCarerStep}
-                                handleChange={this.handleRadioChange}
-                                stateValues={carer}
+                                handleNestedChange={this.handleNestedChange}
+                                stateValues={user}
                             />
                         </>
                         :
                         <>
                             <Step6DisabilityDetails
                                 currentParticipantStep={this.state.currentParticipantStep}
-                                handleChange={this.handleChange}
+                                handleNestedChange={this.handleNestedChange}
 
-                                stateValues={participant}
+                                stateValues={user}
                             />
                             <Step7NDISNumber
                                 currentParticipantStep={this.state.currentParticipantStep}
-                                handleChange={this.handleChange}
+                                handleNestedChange={this.handleNestedChange}
 
-                                stateValues={participant}
+                                stateValues={user}
                             />
                         </>
                     }

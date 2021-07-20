@@ -14,7 +14,8 @@ class Step2PersonalDetails extends Component {
     }
     render() {
         const {stateValues, currentCarerStep, currentParticipantStep, handleChange} = this.props
-        if ( (currentCarerStep !== 2 && stateValues.user_type == 'carer') || (currentParticipantStep !== 2 && stateValues.user_type == 'participant') ) {
+        if ( (currentCarerStep !== 2 && stateValues.user_type == 'carer') 
+        || (currentParticipantStep !== 2 && stateValues.user_type == 'participant') ) {
             return null
         }
 
