@@ -14,7 +14,7 @@ class Step7NDISNumber extends Component {
     
     }
     render() {
-    const {value, currentParticipantStep, handleChange} = this.props
+    const {stateValues, currentParticipantStep, handleChange} = this.props
         if (currentParticipantStep !== 7) {
             return null
         }
@@ -26,20 +26,20 @@ class Step7NDISNumber extends Component {
             <RadioGroup aria-label="Will you use NDIS funding for your services?" 
                 name="ndis" onChange={handleChange} required>
                     <FormControlLabel 
-                        name="value.ndis"
-                        control={<Radio />}
+                        name="stateValues.ndis"
+                        control={<Radio checked={stateValues.ndis === 'true'} />}
                         value="true"
                         label="Yes"
                     />
                     <FormControlLabel 
                         name="value.ndis"
-                        control={<Radio />}
+                        control={<Radio checked={stateValues.ndis === 'false'} />}
                         value="false"
                         label="No"
                     />
                 </RadioGroup>
 
-            {value.ndis ?
+            {stateValues.ndis ?
             <div class="ndis-number-field">
             <p>Please enter your NDIS number.</p>
             
@@ -48,7 +48,7 @@ class Step7NDISNumber extends Component {
                     label="NDIS number"
                     name="ndis_number"
                     type="text"
-                    value={value.ndis_number}
+                    value={stateValues.ndis_number}
                     onChange={this.handleChange}
                     margin="normal"
                     variant="outlined"

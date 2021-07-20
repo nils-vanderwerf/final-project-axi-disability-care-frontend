@@ -59,26 +59,26 @@ class Registration extends Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+        this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
         this.handleAddressChange = this.handleAddressChange.bind(this);
         // this.handleRadioChange = this.handleRadioChange.bind(this);
     }
 
     useStyles = makeStyles((theme) => ({
         root: {
-          width: '100%',
+            width: '100%',
         },
         button: {
-          marginRight: theme.spacing(1),
+            marginRight: theme.spacing(1),
         },
         completed: {
-          display: 'inline-block',
+            display: 'inline-block',
         },
         instructions: {
-          marginTop: theme.spacing(1),
-          marginBottom: theme.spacing(1),
+            marginTop: theme.spacing(1),
+            marginBottom: theme.spacing(1),
         },
-      }));
+    }));
 
     handleSubmit(event) {
         const { user } = { ...this.state };
@@ -89,40 +89,40 @@ class Registration extends Component {
             { withCredentials: true }
         ).
             then(response => {
-            if (response.data.status === 'created') {
-                this.props.handleSuccessfulAuth(response.data);
-            }
-        })
-        .catch(error => {
-            console.log("registration error", error)
-        })
+                if (response.data.status === 'created') {
+                    this.props.handleSuccessfulAuth(response.data);
+                }
+            })
+            .catch(error => {
+                console.log("registration error", error)
+            })
     }
 
 
     _next = () => {
         let currentParticipantStep = this.state.currentParticipantStep
         let currentCarerStep = this.state.currentCarerStep
-        if (currentCarerStep < 9){
+        if (currentCarerStep < 9 && this.state.user.user_type == 'carer') {
             console.log(this.state.user.user_type)
             this.setState({
                 currentCarerStep: currentCarerStep + 1
             })
-        } 
-        if (currentParticipantStep < 7) {
+        }
+        if (currentParticipantStep < 7 && this.state.user.user_type == 'participant') {
             console.log(!this.state.user.user_type)
             this.setState({
                 currentParticipantStep: currentParticipantStep + 1
             })
         }
     }
-        
+
     _prev = () => {
         let currentParticipantStep = this.state.currentParticipantStep
         let currentCarerStep = this.state.currentCarerStep
         currentCarerStep = currentCarerStep <= 1 ? 1 : currentCarerStep - 1
 
         currentParticipantStep = currentParticipantStep <= 1 ? 1 : currentParticipantStep - 1
-        
+
         this.setState({
             currentParticipantStep: currentParticipantStep,
             currentCarerStep: currentCarerStep
@@ -130,54 +130,53 @@ class Registration extends Component {
     }
 
     previousButton() {
-    let currentParticipantStep = this.state.currentParticipantStep
-    let currentCarerStep = this.state.currentCarerStep
-    if(currentParticipantStep !==1 && currentCarerStep !== 1 ){
-        return (
-        <Button
-            className="previous-button"
-            variant="outlined"
-            type="button" onClick={this._prev}>
-        Previous
-        </Button>
-        )
+        let currentParticipantStep = this.state.currentParticipantStep
+        let currentCarerStep = this.state.currentCarerStep
+        if (currentParticipantStep !== 1 || currentCarerStep !== 1) {
+            return (
+                <Button
+                    className="previous-button"
+                    variant="outlined"
+                    type="button" onClick={this._prev}>
+                    Previous
+                </Button>
+            )
+        }
+        return null;
     }
-    return null;
-    }
-    
+
     nextButton() {
         let currentParticipantStep = this.state.currentParticipantStep
         let currentCarerStep = this.state.currentCarerStep
         console.log(this.state.user.user_type)
-        if(currentCarerStep < 9 && this.state.user.user_type === "carer" || 
-            currentParticipantStep < 7 && this.state.user.user_type === "participant" ){
-        return (
-        <Button 
-            className="next-button"
-            color="primary"
-            variant="contained" 
-            type="button" onClick={this._next}>
-            Next
-        </Button>        
-        )
-    }
-    return null;
+        if (currentCarerStep < 9 && this.state.user.user_type === "carer" ||
+            currentParticipantStep < 7 && this.state.user.user_type === "participant") {
+            return (
+                <Button
+                    className="next-button"
+                    color="primary"
+                    variant="contained"
+                    type="button" onClick={this._next}>
+                    Next
+                </Button>
+            )
+        }
+        return null;
     }
     handleChange(event) {
         const { user } = { ...this.state };
         const currentState = user;
         const { name, value } = event.target;
         currentState[name] = value;
-      
+
         this.setState({ user: currentState });
     }
 
-    handleCheckboxChange = event => {
-        
+    handleCheckBoxChange = event => {
         let newArray = [...this.state.support_categories, event.target.name];
         if (this.state.support_categories.includes(event.target.name)) {
             newArray = newArray.filter
-            (category => category !== event.target.name);
+                (category => category !== event.target.name);
         }
     }
 
@@ -208,9 +207,9 @@ class Registration extends Component {
         const currentState = address;
         const { name, value } = event.target;
         currentState[name] = value;
-        
+
         this.setState({ address: currentState });
-      };
+    };
 
     render() {
         const { user } = this.state;
@@ -221,66 +220,65 @@ class Registration extends Component {
         return (
             <Container>
                 <h1>Sign Up Form</h1>
-                
-                <h2>Step {this.state.user.user_type === "true" ? this.state.currentCarerStep : this.state.currentParticipantStep} </h2> 
-        
+
+                <h2>Step {this.state.user.user_type === "carer" ? this.state.currentCarerStep : this.state.currentParticipantStep} </h2>
+
                 <form onSubmit={this.handleSubmit}>
                     {/* 
                     render the form steps and pass required props in
                     */}
                     <Step1UserType
-                        currentParticipantStep ={this.state.currentParticipantStep}
-                        currentCarerStep ={this.state.currentCarerStep} 
+                        currentParticipantStep={this.state.currentParticipantStep}
+                        currentCarerStep={this.state.currentCarerStep}
                         handleChange={this.handleChange}
                         handleRadioChange={this.handleRadioChange}
                         stateValues={user}
                     />
-                    <Step2PersonalDetails 
-                        currentParticipantStep ={this.state.currentParticipantStep}
-                        currentCarerStep ={this.state.currentCarerStep}  
+                    <Step2PersonalDetails
+                        currentParticipantStep={this.state.currentParticipantStep}
+                        currentCarerStep={this.state.currentCarerStep}
                         handleChange={this.handleChange}
                         stateValues={user}
                     />
-                    <Step3Address 
-                        currentParticipantStep ={this.state.currentParticipantStep}
-                        currentCarerStep ={this.state.currentCarerStep}  
+                    <Step3Address
+                        currentParticipantStep={this.state.currentParticipantStep}
+                        currentCarerStep={this.state.currentCarerStep}
                         handleAddressChange={this.handleAddressChange}
-                        
                         stateValues={user}
                     />
                     <Step4SupportCategoryDetails
-                        currentParticipantStep ={this.state.currentParticipantStep}
-                        currentCarerStep ={this.state.currentCarerStep}   
-                        handleChange={this.handleChange}
+                        currentParticipantStep={this.state.currentParticipantStep}
+                        currentCarerStep={this.state.currentCarerStep}
+                        handleCheckBoxChange={this.handleCheckBoxChange}
                         stateValues={user}
                     />
                     <Step5Hours
-                        currentParticipantStep ={this.state.currentParticipantStep}
-                        currentCarerStep ={this.state.currentCarerStep}  
+                        currentParticipantStep={this.state.currentParticipantStep}
+                        currentCarerStep={this.state.currentCarerStep}
                         handleChange={this.handleChange}
                         stateValues={user}
                     />
                     {this.state.user.user_type === "carer" ?
                         <>
-                            <Step6CarerVerification                     
-                                currentCarerStep ={this.state.currentCarerStep}  
+                            <Step6CarerVerification
+                                currentCarerStep={this.state.currentCarerStep}
                                 handleChange={this.handleChange}
                                 stateValues={carer}
                             />
                             <Step7FirstAid
-                                currentCarerStep ={this.state.currentCarerStep}  
+                                currentCarerStep={this.state.currentCarerStep}
                                 handleChange={this.handleChange}
-                                
+
                                 stateValues={carer}
                             />
                             <Step8HourlyRate
-                                currentCarerStep ={this.state.currentCarerStep}  
+                                currentCarerStep={this.state.currentCarerStep}
                                 handleChange={this.handleChange}
-                                
+
                                 stateValues={carer}
                             />
                             <Step9Vehicle
-                                currentCarerStep ={this.state.currentCarerStep}  
+                                currentCarerStep={this.state.currentCarerStep}
                                 handleChange={this.handleRadioChange}
                                 stateValues={carer}
                             />
@@ -288,15 +286,15 @@ class Registration extends Component {
                         :
                         <>
                             <Step6DisabilityDetails
-                                currentParticipantStep ={this.state.currentParticipantStep} 
+                                currentParticipantStep={this.state.currentParticipantStep}
                                 handleChange={this.handleChange}
-                                
+
                                 stateValues={participant}
                             />
                             <Step7NDISNumber
-                                currentParticipantStep ={this.state.currentParticipantStep} 
+                                currentParticipantStep={this.state.currentParticipantStep}
                                 handleChange={this.handleChange}
-                                
+
                                 stateValues={participant}
                             />
                         </>

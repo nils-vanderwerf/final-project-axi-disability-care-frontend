@@ -14,8 +14,8 @@ class Step4SupportCategoryDetails extends Component {
   }
 
   render() {
-    const {value, currentCarerStep, currentParticipantStep, handleChange} = this.props
-    if (currentCarerStep !== 4 && currentParticipantStep !== 4 ) {
+    const { stateValues, currentCarerStep, currentParticipantStep, handleCheckBoxChange } = this.props
+    if (currentCarerStep !== 4 && currentParticipantStep !== 4) {
       return null
     }
     return (
@@ -29,10 +29,10 @@ class Step4SupportCategoryDetails extends Component {
               control={
                 <Checkbox
                   id="1"
-                  onChange={this.handleCheckboxChange}
-                  value="help_around_house" 
+                  onChange={handleCheckBoxChange}
+                  value="help_around_house"
                   name="help_around_house" />}
-                  label="Help Around House"
+              label="Help Around House"
             />
             <p>
               Cleaning, yard maintenance, and home-office duties.
@@ -42,21 +42,21 @@ class Step4SupportCategoryDetails extends Component {
               control={
                 <Checkbox
                   id="2"
-                  onChange={this.handleCheckboxChange}
+                  onChange={handleCheckBoxChange}
                   value="personal_care"
                   name="personal_care" />}
-                  label="Personal Care"
+              label="Personal Care"
             />
             <p>
               Things like showering, toileting and mealtime assistance at home or in the community.
             </p>
 
             <FormControlLabel
-                id="3"
-                control={<Checkbox
-                onChange={this.handleCheckboxChange}
+              id="3"
+              control={<Checkbox
+                onChange={handleCheckBoxChange}
                 value="education_and_employment" name="education_and_employment" />}
-                label="Education and employment"
+              label="Education and employment"
             />
             <p>
               Coaching to help you achieve your goals at school, college or work.
@@ -66,10 +66,10 @@ class Step4SupportCategoryDetails extends Component {
               control={
                 <Checkbox
                   id="4"
-                  onChange={this.handleCheckboxChange}
+                  onChange={this.handleCheckBoxChange}
                   value="in_home_care"
                   name="in_home_care" />}
-                  label="In home care"
+              label="In home care"
             />
             <p>
               Help with morning and evening routines, sweeping, mopping, dishes, medical prompts, and meal preparation.
@@ -79,38 +79,40 @@ class Step4SupportCategoryDetails extends Component {
               control={
                 <Checkbox
                   id="5"
-                  onChange={this.handleCheckboxChange}
+                  onChange={handleCheckBoxChange}
                   value="transport"
                   name="transport" />}
-                  label="Transport"
+              label="Transport"
             />
+
+            <p>
+              Help to get your chores done or travel from A to B.
+            </p>
+
 
             <FormControlLabel
               control={
                 <Checkbox
                   id="6"
-                  onChange={this.handleCheckboxChange}
+                  onChange={this.handleCheckBoxChange}
                   value="out_and_about"
                   name="out_and_about" />}
-                  label="Out and about"
+              label="Out and about"
             />
             <p>
               Support to get out, take a class, exercise, volunteer or go to gatherings.
             </p>
 
-            
-            <p>
-              Help to get your chores done or travel from A to B.
-            </p>
+
 
             <FormControlLabel
               control={
                 <Checkbox
-                  onChange={this.handleCheckboxChange}
+                  onChange={this.handleCheckBoxChange}
                   id="7"
                   value="therapy"
                   name="therapy" />}
-                  label="Therapy"
+              label="Therapy"
             />
             <p>
               Disability support workers can help with support to plan, practice, and enjoy your therapy.
@@ -129,10 +131,10 @@ class Step4SupportCategoryDetails extends Component {
               control={
                 <Checkbox
                   id="8"
-                  onChange={this.handleCheckboxChange}
+                  onChange={this.handleCheckBoxChange}
                   value="specialised"
-                  name="specialised"/>}
-                  label="Specialised (Complex)"
+                  name="specialised" />}
+              label="Specialised (Complex)"
             />
             <p>
               May include but not limited to:

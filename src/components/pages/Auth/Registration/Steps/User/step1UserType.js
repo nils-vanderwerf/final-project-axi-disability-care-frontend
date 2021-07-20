@@ -14,7 +14,8 @@ class Step1UserType extends Component {
   render() {
       const {stateValues, currentCarerStep, currentParticipantStep, handleChange} = this.props
       // The markup for the Step 1 UI
-      if ( currentCarerStep !== 1 && currentParticipantStep !== 1 ) {
+      if ( (currentCarerStep !== 1 && stateValues.user_type == 'carer') 
+      || (currentParticipantStep !== 1 && stateValues.user_type == 'participant') ) {
         return null
       }
         return (

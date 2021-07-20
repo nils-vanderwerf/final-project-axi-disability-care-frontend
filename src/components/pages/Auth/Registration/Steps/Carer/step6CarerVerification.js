@@ -8,12 +8,12 @@ class Step6CarerVerification extends Component  {
     }
     render() {
         const {stateValues, currentCarerStep, handleChange} = this.props
-        if (currentCarerStep !== 6) {
+        if ( (currentCarerStep !== 6 ) ) {
             return null
         }
         return (
             <Container>
-                <h2>Step 6</h2>
+                <h3>Support Worker Verification Number</h3>
                 <p>Please enter your support worker verification number.</p>
                 <p>This is your unique 9 digit number to verify that you have meet the necessary
                     background checks to work as a support worker.</p>
