@@ -19,11 +19,17 @@ class User < ApplicationRecord
     through: :hired_tasks,
     source: :user
 
-    belongs_to :city
+    belongs_to :area
     belongs_to :role
 
-    accepts_nested_attributes_for :city
-    accepts_nested_attributes_for :category
+    has_and_belongs_to_many :categories
+    accepts_nested_attributes_for :area
+
+    
+    
+
+    
+   
 
     # def authenticate(plaintext_password)
     #     if BCrypt::Password.new(self.password_digest) == plaintext_password
