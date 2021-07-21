@@ -9,3 +9,15 @@
 .MuiButton-text.dark-theme .MuiButton-label {
   color: #fff;
 }
+
+.MuiFormLabel-root#address-state {
+  position: relative
+}
+
+li.review-item {
+  list-style: none;
+}
+
+li.support-category {
+  list-style: disc;
+}

@@ -2,7 +2,17 @@ import React, { Component } from 'react'
 import { List, ListItem, Container } from '@material-ui/core';
 import { Link } from 'react-router-dom'
 import { render } from '@testing-library/react';
+import CategoryItem from '../../Categories/CategoryItem';
 
+//capitalize, remove underscores
+function humanize(str) {
+    console.log(str)
+    let i, frags = str.split('_');
+    for (i=0; i<frags.length; i++) {
+      frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
+    }
+    return frags.join(' ');
+  }
 class ReviewStep extends Component {
     constructor(props) {
         super(props)
@@ -10,6 +20,7 @@ class ReviewStep extends Component {
 
     render() {
         const { stateValues, currentCarerStep, currentParticipantStep } = this.props
+
         if ((currentCarerStep !== 10 && stateValues.role == 'carer')
             || (currentParticipantStep !== 8 && stateValues.role == 'participant')) {
             return null
@@ -19,8 +30,8 @@ class ReviewStep extends Component {
                 <h3>Review</h3>
                 <p>Please review your answers before submission</p>
                 <ul>
-                <li class="review-item">
-                        <p><strong>User Type: </strong>{stateValues.user_type}</p>
+                    <li class="review-item">
+                        <p><strong>User Type: </strong>{stateValues.role}</p>
                     </li>
                     <li class="review-item">
                         <p><strong>First Name: </strong>{stateValues.first_name}</p>
@@ -47,10 +58,10 @@ class ReviewStep extends Component {
                         <p><strong>State: </strong>{stateValues.state}</p>
                     </li>
                     <li class="review-item">
-                        <p><strong>Zip Code</strong>{stateValues.zip_code}</p>
+                        <p><strong>Zip Code: </strong>{stateValues.zip_code}</p>
                     </li>
 
-                    {stateValues.user_type === 'carer' ?
+                    {stateValues.role === 'carer' ?
 
                         <li class="review-item">
                             <p><strong>Preferred number of hours of work: </strong>{stateValues.hours_of_work}</p>
@@ -62,49 +73,50 @@ class ReviewStep extends Component {
                     }
 
                     <li class="review-item">
-                        <p><strong>Support categories</strong>
-                            <ul className="support_categories">
-                                {
-                                    stateValues.categories.map(cat => {
-                                        <li class="review-item">{cat}</li>
-                                    })
-                                }
-                            </ul>
-                        </p>
+                        <p><strong>Support categories:</strong></p>
+                        <ul>
+                            {stateValues.categories.map((category) => {
+                                return (
+                                <li className="support-category">
+                                    {humanize(category.name)}
+                                </li>
+                                )
+                            })}
+                        </ul>
                     </li>
 
-                    {stateValues.user_type === 'carer' ?
-                    <>
-                      <li class="review-item">
-                           <p><strong>Preferred number of hours with your support worker: </strong>{stateValues.hourly_rate}</p>
-                        </li>
-                        <li class="review-item">
-                            <p><strong>First Aid Training: </strong> {stateValues.first_aid_training === 'true' ? "Yes" : "No"} </p>
-                        </li>
-                        <li class="review-item">
-                            <p><strong>Has Vehicle:</strong>{stateValues.has_vehicle === 'true' ? "Yes" : "No"}</p>
-                        </li>
-                        <li class="review-item">
-                            <p><strong>Carer Number: </strong>{stateValues.carer_number}</p>
-                        </li>
-                    </>
-                    :
-                    <>
-                        <li class="review-item">
-                            <p><strong>Disability</strong>{stateValues.disability}</p>
-                        </li>
-                        <li class="review-item">
-                            <p><strong>Are you using NDIS funding for your services</strong>{stateValues.ndis === 'true' ? "Yes" : "No"}</p>
-                        </li>
-                        <li class="review-item">
-                            <p><strong>NDIS Number</strong>{stateValues.carer_number}</p>
-                        </li>
-                    </>
-                }
-        </ul>
-        </Container>
+                    {stateValues.role === 'carer' ?
+                        <>
+                            <li class="review-item">
+                                <p><strong>Hourly rate: </strong>{stateValues.hourly_rate}</p>
+                            </li>
+                            <li class="review-item">
+                                <p><strong>First Aid Training: </strong> {stateValues.first_aid_training === 'true' ? "Yes" : "No"} </p>
+                            </li>
+                            <li class="review-item">
+                                <p><strong>Has Vehicle: </strong>{stateValues.has_vehicle === 'true' ? "Yes" : "No"}</p>
+                            </li>
+                            <li class="review-item">
+                                <p><strong>Carer Number: </strong>{stateValues.carer_number}</p>
+                            </li>
+                        </>
+                        :
+                        <>
+                            <li class="review-item">
+                                <p><strong>Disability</strong>{stateValues.disability}</p>
+                            </li>
+                            <li class="review-item">
+                                <p><strong>Are you using NDIS funding for your services</strong>{stateValues.ndis === 'true' ? "Yes" : "No"}</p>
+                            </li>
+                            <li class="review-item">
+                                <p><strong>NDIS Number</strong>{stateValues.carer_number}</p>
+                            </li>
+                        </>
+                    }
+                </ul>
+            </Container>
         )
     }
 }
 
- export default ReviewStep;
+export default ReviewStep;

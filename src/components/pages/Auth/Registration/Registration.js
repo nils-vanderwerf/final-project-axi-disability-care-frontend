@@ -34,9 +34,11 @@ class Registration extends Component {
                 bio: "",
                 age: "",
                 gender: "",
-                city: "",
-                state: "",
-                zip_code: "",
+                area: {
+                    city: "",
+                    state: "",
+                    zip_code: "",
+                },
                 email: "",
                 hours_of_work: 15,
                 categories: [],
@@ -79,11 +81,17 @@ class Registration extends Component {
     handleSubmit(event) {
         event.preventDefault()
         const { user } = { ...this.state};
+        const allCategoryIds = user.categories.map(element => element.id)
+        // const category_ids = allCategoryIds
+        const role_id = user.role === 'carer' ? 1 : 2
+        delete user.categories
+        delete user.role
+        delete user.area
 
         // user.role = "carer"
-        console.log("User Type", user.role, user.role[0])
         axios.post('http://localhost:3001/api/v1/registrations', {
-            user
+            user,
+            // category_ids
         },
             { withCredentials: true }
         )
@@ -174,23 +182,38 @@ class Registration extends Component {
         )
     }
     handleChange(event) {
-        const { user } = { ...this.state };
+        const { user } = this.state;
+        const {currentCarerStep, currentParticipantStep} = this.state
+        console.log("User is correct:", user)
         const currentState = user;
         const { name, value } = event.target;
         currentState[name] = value;
-        console.log("radio value", value)
 
-        this.setState({ 
-            user: currentState 
-        });
+        if (currentCarerStep === 3 || currentParticipantStep === 3) {
+            this.setState({ 
+                user: {
+                    ...this.state.user, 
+                    area : {
+                        ...this.state.user.area,
+                        [name]: value
+                    }
+                }
+            })
+        } else {
+            this.setState({ 
+                user: currentState 
+            });
+        }  
     }
 
 
     handleCheckBoxChange = event => {
+        console.log(event.target.id)
         const { user } = { ...this.state };
         const currentState = user;
         const { name, value } = event.target;
-        let newArray = [...this.state.user.categories, event.target.name];
+        let newArray = [...this.state.user.categories, 
+            {name: event.target.name, id: event.target.id}];
         
         if (this.state.user.categories.includes(event.target.name)) {
           newArray = newArray.filter

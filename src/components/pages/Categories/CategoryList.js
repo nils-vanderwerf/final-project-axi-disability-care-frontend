@@ -33,6 +33,7 @@ export default class SplashPage extends React.Component {
   }
   
   render() {
+    const {handleCheckBoxChange } = this.props
     return (
         <Container className="splash-hero-container">
             <div className="splash-hero-slogan">
@@ -40,7 +41,9 @@ export default class SplashPage extends React.Component {
               <h2>Support Categories</h2>
               <ul class="category-list">
                 {this.state.categories.map((category) => (
-                  <CategoryItem key={category.id} category={category}/>
+                  <li key={category.id} className="support-category">
+                    <CategoryItem key={category.id} category={category}/>
+                  </li>
                 ))}
               </ul>
             </div>

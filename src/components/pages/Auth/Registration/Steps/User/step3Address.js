@@ -41,8 +41,8 @@ class Step3Address extends Component {
           <p>Where are you based?</p>
           <TextField
             label="City"
-            id="city"
-            name="city"
+            id="address"
+            name="address"
             type="text"
             value={stateValues.city}
             onChange={handleChange}
@@ -52,16 +52,21 @@ class Step3Address extends Component {
           />
 
           <div class="select-wrapper">
-            <InputLabel id="address-state"></InputLabel>
+            <InputLabel id="city-state">Select a state</InputLabel>
             <Select
-              labelId="address-state"
+              id="city-state"
+              labelId="city-state"
               className="select"
               name="state"
               value={stateValues.state}
+              defaultValue="Select a state"
               onChange={handleChange}
               fullWidth
               variant="outlined"
             >
+              <option disabled>
+            Select a state
+          </option>
               {states.map(([value, name]) => (
                 <MenuItem value={value} key={value}>{name}</MenuItem>
               ))}
