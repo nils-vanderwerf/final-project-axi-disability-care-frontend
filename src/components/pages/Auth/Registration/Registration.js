@@ -85,10 +85,13 @@ class Registration extends Component {
         const category_ids = (user.categories ? user.categories.map(element => element.id) : null)
         // const category_ids = allCategoryIds
         const role_id = user.role === 'carer' ? 1 : 2
-        const area_attributes = [user.city, user.state, user.zip_code]
+        const area_attributes = { 
+            city: user.city, 
+            state: user.state,
+            zip_code: user.zip_code
+        }
         delete user.categories
         delete user.role
-        delete user.area
         delete user.city
         delete user.state
         delete user.zip_code
