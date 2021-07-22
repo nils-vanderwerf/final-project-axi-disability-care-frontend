@@ -81,17 +81,24 @@ class Registration extends Component {
     handleSubmit(event) {
         event.preventDefault()
         const { user } = { ...this.state};
-        const allCategoryIds = user.categories.map(element => element.id)
+        console.log("Area", user.city, user.state, user.zip_code)
+        const category_ids = (user.categories ? user.categories.map(element => element.id) : null)
         // const category_ids = allCategoryIds
         const role_id = user.role === 'carer' ? 1 : 2
+        const area_attributes = [user.city, user.state, user.zip_code]
         delete user.categories
         delete user.role
         delete user.area
+        delete user.city
+        delete user.state
+        delete user.zip_code
 
-        // user.role = "carer"
+       console.log(role_id)
         axios.post('http://localhost:3001/api/v1/registrations', {
             user,
-            // category_ids
+            role_id,
+            category_ids,
+            area_attributes
         },
             { withCredentials: true }
         )
@@ -239,23 +246,6 @@ class Registration extends Component {
     //     console.log("role", typeof this.state.user.role )
     // }
 
-    //  str2bool = (value) => {
-    //     if (value && typeof value === "string") {
-    //          if (value.toLowerCase() === "true") return true;
-    //          if (value.toLowerCase() === "false") return false;
-    //     }
-    //     return value;
-    //  }
-
-
-    // handleNestedChange = (event) => {
-    //     const {name, value} = event.target
-    //     console.log(name)
-    //     const currentState = address;
-    //     currentState[name] = value;
-
-    //     this.setState({ address: currentState });
-    // };
 
     returnToEditPage() {
         if (this.state.role === 'carer') {

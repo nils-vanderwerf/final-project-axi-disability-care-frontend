@@ -75,13 +75,17 @@ class ReviewStep extends Component {
                     <li class="review-item">
                         <p><strong>Support categories:</strong></p>
                         <ul>
-                            {stateValues.categories.map((category) => {
+                        {stateValues.categories ? 
+                            stateValues.categories.map((category) => {
                                 return (
                                 <li className="support-category">
                                     {humanize(category.name)}
                                 </li>
                                 )
-                            })}
+                            }) 
+                            : 
+                            null 
+                            }
                         </ul>
                     </li>
 
