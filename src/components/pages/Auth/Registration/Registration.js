@@ -85,7 +85,11 @@ class Registration extends Component {
         const category_ids = (user.categories ? user.categories.map(element => element.id) : null)
         // const category_ids = allCategoryIds
         const role_id = user.role === 'carer' ? 1 : 2
-        const area_attributes = [user.city, user.state, user.zip_code]
+        const area_attributes = {
+            city: user.city,
+            state: user.state,
+            zip_code: user.zip_code
+        }
         delete user.categories
         delete user.role
         delete user.area
@@ -93,12 +97,14 @@ class Registration extends Component {
         delete user.state
         delete user.zip_code
 
-       console.log(role_id)
+       console.log(area_attributes)
         axios.post('http://localhost:3001/api/v1/registrations', {
-            user,
-            role_id,
-            category_ids,
-            area_attributes
+            user : {
+                ...user,
+                role_id,
+                category_ids,
+                area_attributes
+            }
         },
             { withCredentials: true }
         )

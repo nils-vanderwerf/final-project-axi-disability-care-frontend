@@ -37,7 +37,7 @@ class ReviewStep extends Component {
                         <p><strong>First Name: </strong>{stateValues.first_name}</p>
                     </li>
                     <li class="review-item">
-                        <p><strong>Last Name:</strong>{stateValues.last_name}</p>
+                        <p><strong>Last Name: </strong>{stateValues.last_name}</p>
                     </li>
                     <li class="review-item">
                         <p><strong>Email: </strong> {stateValues.email}</p>
@@ -107,13 +107,13 @@ class ReviewStep extends Component {
                         :
                         <>
                             <li class="review-item">
-                                <p><strong>Disability</strong>{stateValues.disability}</p>
+                                <p><strong>Disability: </strong>{stateValues.disability}</p>
                             </li>
                             <li class="review-item">
-                                <p><strong>Are you using NDIS funding for your services</strong>{stateValues.ndis === 'true' ? "Yes" : "No"}</p>
+                                <p><strong>Are you using NDIS funding for your services: </strong>{stateValues.ndis === 'true' ? "Yes" : "No"}</p>
                             </li>
                             <li class="review-item">
-                                <p><strong>NDIS Number</strong>{stateValues.carer_number}</p>
+                                <p><strong>NDIS Number: </strong>{stateValues.carer_number}</p>
                             </li>
                         </>
                     }

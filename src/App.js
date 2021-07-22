@@ -27,7 +27,10 @@ class App extends Component {
 
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this)
+    this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
   }
+
+
 
   checkLoginStatus() {
     axios.get("http://localhost:3001/api/v1/get_current_user", { withCredentials: true })
@@ -136,7 +139,12 @@ render() {
                 <Route exact path='/my-tasks' component={MyTasks} />
                 <Route exact path='/user-account' component={UserAccount} />
                 <Route exact path='/login' component={LoginForm} />
-                <Route exact path='/sign-up' component={Registration} />
+                <Route exact path='/sign-up'render={props => (
+                    <Registration 
+                      {...props} 
+                      handleSuccessfulAuth={this.handleSuccessfulAuth}
+                      />
+                  )} />
 
               </Switch>
             </Router>
