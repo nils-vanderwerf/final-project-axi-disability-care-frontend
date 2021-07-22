@@ -13,6 +13,7 @@ class AreasController < ApplicationController
   # GET /areas/new
   def new
     @area = Area.new
+    @area.users.build
   end
 
   # GET /areas/1/edit
@@ -52,7 +53,7 @@ class AreasController < ApplicationController
     end
 
     # Only allow a list of trusted parameters through.
-    def area_params
-      params.fetch(:area, {})
-    end
+    # def area_params
+    #   params.fetch(:area)
+    # end
 end

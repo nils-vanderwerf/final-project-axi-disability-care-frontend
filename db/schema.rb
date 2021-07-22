@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_21_082914) do
+ActiveRecord::Schema.define(version: 2021_07_22_122046) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "hstore"
   enable_extension "plpgsql"
 
   create_table "areas", force: :cascade do |t|
@@ -28,11 +29,6 @@ ActiveRecord::Schema.define(version: 2021_07_21_082914) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "categories_users", id: false, force: :cascade do |t|
-    t.bigint "category_id", null: false
-    t.bigint "user_id", null: false
   end
 
   create_table "roles", force: :cascade do |t|
@@ -59,6 +55,15 @@ ActiveRecord::Schema.define(version: 2021_07_21_082914) do
     t.index ["client_id"], name: "index_tasks_on_client_id"
   end
 
+  create_table "user_categories", force: :cascade do |t|
+    t.bigint "category_id"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_user_categories_on_category_id"
+    t.index ["user_id"], name: "index_user_categories_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -76,13 +81,15 @@ ActiveRecord::Schema.define(version: 2021_07_21_082914) do
     t.boolean "first_aid_training", default: false
     t.integer "hourly_rate", default: 50
     t.bigint "role_id"
-    t.bigint "category_id"
     t.bigint "area_id"
+    t.string "hours_of_work"
+    t.integer "carer_number"
+    t.string "disability"
+    t.boolean "ndis", default: false
+    t.integer "ndis_number"
     t.index ["area_id"], name: "index_users_on_area_id"
-    t.index ["category_id"], name: "index_users_on_category_id"
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
-  add_foreign_key "users", "categories"
   add_foreign_key "users", "roles"
 end

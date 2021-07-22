@@ -4,7 +4,8 @@ class Category < ApplicationRecord
     foreign_key: :category_id,
     class_name: :Task
 
-    has_many :users
+    has_many :user_categories
+    has_many :users, :through => :user_categories
 
-    accepts_nested_attributes_for :category
+    
 end

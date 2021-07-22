@@ -20,17 +20,15 @@ class User < ApplicationRecord
     source: :user
 
     belongs_to :area
-    belongs_to :role
-
-    has_and_belongs_to_many :categories
     accepts_nested_attributes_for :area
+    belongs_to :role, optional: true
+
+    has_many :user_categories
+    has_many :categories, :through => :user_categories
+    
+    accepts_nested_attributes_for :categories
 
     
-    
-
-    
-   
-
     # def authenticate(plaintext_password)
     #     if BCrypt::Password.new(self.password_digest) == plaintext_password
     #         self
