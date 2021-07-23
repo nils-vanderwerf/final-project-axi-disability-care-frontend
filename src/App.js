@@ -14,7 +14,7 @@ import NewTask from './components/Tasks/newTask';
 import ConfirmTask from './components/Tasks/confirmTask';
 import MyTasks from './components/Tasks/myTasks';
 import UserAccount from './components/pages/User/Account';
-import Carer from './components/pages/User/Carers'
+import CarersContainer from './components/pages/User/CarersContainer'
 
 
 class App extends Component {
@@ -30,6 +30,10 @@ class App extends Component {
     // this.handleLogout = this.handleLogout.bind(this)
 
   }
+
+  handleSuccessfulAuth(data) {
+    this.props.history.push('/dashboard')
+}
 
   handleLogin(data) {
     this.setState({
@@ -58,6 +62,10 @@ class App extends Component {
       .catch(error => {
         console.log("catch login error", error);
       });
+  }
+
+  createUrlSlug() {
+
   }
 
 
@@ -112,6 +120,24 @@ class App extends Component {
                   />
                 )} />
               <Route path='/pick-category' component={SplashPage} />
+
+
+              <Route path='/pick-support-worker' render={props => (
+                <CarersContainer
+                  {...props}
+                  handleLogout={this.handleLogout}
+                  loggedInStatus={this.state.loggedInStatus}
+                />
+              )} />
+
+              <Route path='/sign-up' render={props => (
+                <Registration
+                  {...props}
+                  handleLogout={this.handleLogout}
+                  loggedInStatus={this.state.loggedInStatus}
+                  handleSuccessfulAuth={this.handleSuccessfulAuth}
+                />
+              )} />
               <Route path='/new-task' render={props => (
                 <NewTask
                   {...props}
@@ -119,23 +145,12 @@ class App extends Component {
                   loggedInStatus={this.state.loggedInStatus}
                 />
               )} />
-
-<Route path='/pick-support-worker' render={props => (
-                <Carer
-                  {...props}
-                  handleLogout={this.handleLogout}
-                  loggedInStatus={this.state.loggedInStatus}
-                />
-              )} />
-
               <Route path='/confirm-task' component={ConfirmTask} />
               <Route exact path='/my-tasks' component={MyTasks} />
               <Route exact path='/user-account' component={UserAccount} />
-
-
             </Switch>
-          
-          <Container />
+
+            <Container />
           </Router>
         </div>
       </>

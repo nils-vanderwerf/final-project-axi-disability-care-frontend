@@ -5,7 +5,7 @@ import LoginForm from './auth/loginForm'
 import CategoryList from './Categories/CategoryList'
 import { AppBar, Container, Button, Grid } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import Carers from './User/Carers'
+import Carers from './User/CarersContainer'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 export default class Home extends Component {

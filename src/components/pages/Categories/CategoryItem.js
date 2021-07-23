@@ -6,9 +6,11 @@ export default class CategoryItem extends Component {
     constructor(props) {
         super(props)
     }
+
+    
     render() {
         return (
-            <Link to={ { pathname: '/new-task', category_id: this.props.category.id } }>
+            <Link to={ { pathname: `/new-task/`, category_id: this.props.category.id } }>
                 <Container>
                 <h3>{this.props.category.name}</h3>
                 </Container>

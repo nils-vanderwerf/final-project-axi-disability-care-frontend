@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { fetchUsers } from '../../../redux/users/fetchUsers/fetchUserActions'
+import { fetchCarers } from '../../../redux/users/fetchCarers/fetchCarerActions'
 import { Button } from '@material-ui/core'
 
-const Carers = ({ userData, fetchUsers }) => {
+const CarersContainer = ({ userData, fetchCarers }) => {
   useEffect(() => {
-    fetchUsers()
-    console.log("users:", userData)
+    fetchCarers()
   }, [])
   return userData.loading ? (
     <h2>Loading</h2>
@@ -22,8 +21,8 @@ const Carers = ({ userData, fetchUsers }) => {
       </div>
       <div>
         {
-          userData.users ?
-            userData.users.map(user =>
+          userData.carers.users ?
+            userData.carers.users.map(user =>
               <div class="carer">
                 <h3>{user.first_name} {user.last_name} </h3>
                 <p><strong>Post Code</strong>: {user.zip_code}</p>
@@ -43,17 +42,17 @@ const Carers = ({ userData, fetchUsers }) => {
 
 const mapStateToProps = state => {
   return {
-    userData: state.user
+    userData: state.carer
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchUsers: () => dispatch(fetchUsers())
+    fetchCarers: () => dispatch(fetchCarers())
   }
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Carers)
+)(CarersContainer)
