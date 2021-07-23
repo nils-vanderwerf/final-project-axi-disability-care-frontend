@@ -28,9 +28,7 @@ export default class Home extends Component {
     render() {
         return (
             <div className="login-hero-container">
-
-                <Registration handleSuccessfulAuth={this.handleSuccessfulAuth}/>
-                <LoginForm handleSuccessfulAuth={this.handleSuccessfulAuth}/>
+                <CategoryList/>
             </div>
         )
     }

@@ -12,7 +12,7 @@ export const fetchUsers = () => {
       .get('http://localhost:3001/api/v1/users')
       .then(response => {
         // response.data is the users
-        console.log(response.data)
+        
         const users = response.data
         dispatch(fetchUsersSuccess(users))
       })

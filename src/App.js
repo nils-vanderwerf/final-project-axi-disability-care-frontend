@@ -14,6 +14,7 @@ import NewTask from './components/Tasks/newTask';
 import ConfirmTask from './components/Tasks/confirmTask';
 import MyTasks from './components/Tasks/myTasks';
 import UserAccount from './components/pages/User/Account';
+import Carer from './components/pages/User/Carers'
 
 
 class App extends Component {
@@ -112,16 +113,22 @@ class App extends Component {
                 )} />
               <Route path='/pick-category' component={SplashPage} />
               <Route path='/new-task' render={props => (
-                <Logout
+                <NewTask
                   {...props}
                   handleLogout={this.handleLogout}
                   loggedInStatus={this.state.loggedInStatus}
                 />
               )} />
 
+<Route path='/pick-support-worker' render={props => (
+                <Carer
+                  {...props}
+                  handleLogout={this.handleLogout}
+                  loggedInStatus={this.state.loggedInStatus}
+                />
+              )} />
 
-
-              <Route exact path='/confirm-task' component={ConfirmTask} />
+              <Route path='/confirm-task' component={ConfirmTask} />
               <Route exact path='/my-tasks' component={MyTasks} />
               <Route exact path='/user-account' component={UserAccount} />
 
