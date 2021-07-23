@@ -12,18 +12,25 @@ export default class Home extends Component {
 
     constructor(props) {
         super(props);
+        // this.handleLogoutClick = this.handleLogoutClick.bind(this);
+        this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
+        this.createTask = this.createTask.bind(this)
+    }
 
-        
-        this.handleLogoutClick = this.handleLogoutClick.bind(this);
-      }
+    handleSuccessfulAuth(data) {
+        this.props.history.push('/dashboard')
+    }
+
+    createTask() {
+
+    }
 
     render() {
         return (
-            <div className="login-hero-containrr">
-                {/* <CategoryList></CategoryList> */}
-                <Button onClick={() => this.handleLogoutClick()}>Logout</Button>
+            <div className="login-hero-container">
 
-                
+                <Registration handleSuccessfulAuth={this.handleSuccessfulAuth}/>
+                <LoginForm handleSuccessfulAuth={this.handleSuccessfulAuth}/>
             </div>
         )
     }
