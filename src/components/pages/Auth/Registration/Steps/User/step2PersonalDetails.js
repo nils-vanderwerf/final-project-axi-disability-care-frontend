@@ -95,19 +95,19 @@ class Step2PersonalDetails extends Component {
                         <FormControlLabel
                             name="gender"
                             control={<Radio />}
-                            value="male"
+                            value="Male"
                             label="Male"
                         />
                         <FormControlLabel
                             name="gender"
                             control={<Radio />}
-                            value="female"
+                            value="Female"
                             label="Female"
                         />
                         <FormControlLabel
                             name="gender"
                             control={<Radio />}
-                            value="other"
+                            value="Other"
                             label="Other"
                         />
                     </RadioGroup>

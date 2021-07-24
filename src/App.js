@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { fetchCarers } from './redux/users/fetchCarers/fetchCarerActions'
 import Home from './components/pages/Home'
 import Dashboard from './components/pages/Dashboard';
 import { AppBar, Container, Button } from '@material-ui/core';
@@ -15,6 +17,7 @@ import ConfirmTask from './components/Tasks/confirmTask';
 import MyTasks from './components/Tasks/myTasks';
 import UserAccount from './components/pages/User/Account';
 import CarersContainer from './components/pages/User/CarersContainer'
+import IndividualCarer from './components/pages/User/IndividualCarer'
 
 
 class App extends Component {
@@ -22,39 +25,41 @@ class App extends Component {
     super(props);
 
     this.state = {
-      loggedInStatus: "NOT_LOGGED_IN",
+      loggedIn: false,
       user: {}
     }
 
     this.handleLogin = this.handleLogin.bind(this);
+    // this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this)
     // this.handleLogout = this.handleLogout.bind(this)
 
   }
 
-  handleSuccessfulAuth(data) {
-    this.props.history.push('/dashboard')
-}
+  componentDidMount() {
+    this.checkLoginStatus();
+    this.props.fetchCarers()
+    console.log("Fetch carers response", this.props.userData)
+  }
+
 
   handleLogin(data) {
     this.setState({
-      loggedInStatus: 'LOGGED_IN',
+      loggedIn: false,
       user: data
     })
   }
 
-
-
   checkLoginStatus() {
     axios.get("http://localhost:3001/api/v1/get_current_user", { withCredentials: true })
       .then(response => {
-        if (response.data.logged_in && this.state.loggedInStatus === "NOT_LOGGED_IN") {
+        if (response.data.logged_in && this.state.loggedIn) {
           this.setState({
-            loggedInStatus: "LOGGED_IN",
+            loggedIn: true,
             user: response.data.user
           })
-        } else if (!response.data.logged_in & this.state.loggedInStatus === "LOGGED_IN") {
+        } else if (!response.data.logged_in & this.state.loggedIn) {
           this.setState({
-            loggedInStatus: "NOT_LOGGED_IN",
+            loggedIn: false,
             user: {}
           })
         }
@@ -62,16 +67,6 @@ class App extends Component {
       .catch(error => {
         console.log("catch login error", error);
       });
-  }
-
-  createUrlSlug() {
-
-  }
-
-
-  componentDidMount() {
-    this.checkLoginStatus();
-    // this.props.getCurrentUser();
   }
 
 
@@ -85,7 +80,7 @@ class App extends Component {
               <Container>
 
                 {
-                  this.props.loggedInStatus === 'NOT_LOGGED_IN' ?
+                  this.props.loggedIn === 'NOT_LOGGED_IN' ?
                     <Link to={{ pathname: '/login' }}>
                       <Button className="dark-theme">Login</Button>
                     </Link>
@@ -106,7 +101,7 @@ class App extends Component {
                     // handleLogout={this.handleLogout}
 
                     handleLogin={this.handleLogin}
-                    loggedInStatus={this.state.loggedInStatus}
+                    loggedIn={this.state.loggedIn}
                   />
                 )} />
 
@@ -115,7 +110,7 @@ class App extends Component {
                 render={props => (
                   <Dashboard
                     {...props}
-                    loggedInStatus={this.state.loggedInStatus}
+                    loggedIn={this.state.loggedIn}
                     user={this.state.user}
                   />
                 )} />
@@ -126,25 +121,30 @@ class App extends Component {
                 <CarersContainer
                   {...props}
                   handleLogout={this.handleLogout}
-                  loggedInStatus={this.state.loggedInStatus}
+                  loggedIn={this.state.loggedIn}
                 />
               )} />
 
               <Route path='/sign-up' render={props => (
-                <Registration
+                  this.state.loggedIn ? 
+                  <Redirect to="/dashboard" /> 
+                  : 
+                  <Registration
                   {...props}
                   handleLogout={this.handleLogout}
-                  loggedInStatus={this.state.loggedInStatus}
-                  handleSuccessfulAuth={this.handleSuccessfulAuth}
-                />
-              )} />
+                  loggedIn={this.state.loggedIn}
+                /> 
+              )}
+              />
               <Route path='/new-task' render={props => (
                 <NewTask
                   {...props}
                   handleLogout={this.handleLogout}
-                  loggedInStatus={this.state.loggedInStatus}
+                  handleLogin={this.handleLogin}
+                  loggedIn={this.state.loggedIn}
                 />
               )} />
+              <Route path='/carer/:id' render={match => <IndividualCarer match={match} />} />
               <Route path='/confirm-task' component={ConfirmTask} />
               <Route exact path='/my-tasks' component={MyTasks} />
               <Route exact path='/user-account' component={UserAccount} />
@@ -158,10 +158,27 @@ class App extends Component {
   }
 }
 
+
+const mapStateToProps = state => {
+  return {
+    userData: state.carer
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchCarers: () => dispatch(fetchCarers())
+  }
+}
+
+
 // const mapStateToProps = state => {
 //   return {
 //     loggedIn: !!state.currentUser
 //   };
 // };
 
-export default App;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

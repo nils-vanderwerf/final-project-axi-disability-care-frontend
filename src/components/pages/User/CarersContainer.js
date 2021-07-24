@@ -2,10 +2,12 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { fetchCarers } from '../../../redux/users/fetchCarers/fetchCarerActions'
 import { Button } from '@material-ui/core'
+import CarersItem from './CarersItem'
 
 const CarersContainer = ({ userData, fetchCarers }) => {
   useEffect(() => {
     fetchCarers()
+
   }, [])
   return userData.loading ? (
     <h2>Loading</h2>
@@ -22,15 +24,11 @@ const CarersContainer = ({ userData, fetchCarers }) => {
       <div>
         {
           userData.carers.users ?
-            userData.carers.users.map(user =>
-              <div class="carer">
-                <h3>{user.first_name} {user.last_name} </h3>
-                <p><strong>Post Code</strong>: {user.zip_code}</p>
-                <p>{user.bio}</p>
-                <Button variant="contained" color="primary">View</Button>
-                <Button variant="contained" color="primary">Book</Button>
-                <Button variant="contained" color="primary">Save</Button>
-              </div>
+            userData.carers.users.map(user => {
+              
+              return <CarersItem user={user}/>
+              
+            }
             )
             :
             <h2>No support workers to display</h2>
