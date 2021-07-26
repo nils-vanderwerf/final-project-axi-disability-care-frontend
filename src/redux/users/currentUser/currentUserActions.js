@@ -1,52 +1,49 @@
-import {GET_CURRENT_USER, LOGOUT_CURRENT_USER} from '../userTypes'
+import {LOGOUT_CURRENT_USER} from '../userTypes'
+import axios from 'axios'
 
-export const getCurrentUser = (user) => {
+export const setCurrentUser = user => {
+    console.log(user);
     return {
-        type: GET_CURRENT_USER,
-        payload: user
-    }
+      type: "SET_CURRENT_USER", // matches the case in the reducer
+      user // shorthand version of payload: user
+    };
 }
 
-export const logoutCurrentUser = (logged_in) => {
-    return {
-        type: LOGOUT_CURRENT_USER,
-        payload: logged_in
+export const getCurrentUser = () => {
+    return dispatch => {
+        axios
+        .get("http://localhost:3001/api/v1/get_current_user", 
+            { withCredentials: true }
+        )
+        .then(user => {
+            dispatch(setCurrentUser(user));
+          }
+        )
+        .catch(error => console.log(error));
+    };
+  };
+
+    // asynchronous action creators -- requests to the backend are required first
+    export const login = () => {
+        // console.log("here are the creds", credentials);
+        return (dispatch) => {
+            axios.post("http://localhost:3001/api/v1/login",
+                { withCredentials: true }
+            )
+            .then(user => {
+                dispatch(setCurrentUser(user)); // dispatch action creator
+            })
+            .catch(error => {
+                console.log(error)
+            });
+        };
+      };
+
+    export const logout = (user) => {
+        return {
+            type: LOGOUT_CURRENT_USER,
+            payload: user
+        }
     }
-}
 
-// export const getCurrentUser = () => {
-//     return (dispatch) => {
-//       return axios
-//       .get('http://localhost:3001/api/v1/get_current_user')
-//       .then(response => {
-//         // response.data is the users
-        
-//         const users = response.data
-//         dispatch(getUsersSuccess(data))
-//         })
-//         .then(res => res.json())
-//         .then(user => 
-//            console.log(user)
-//           }
-//         })
-//         .catch(console.log);
-//     };
-//   };
 
-//   export const fetchCarers = () => {
-//     return (dispatch) => {
-//       dispatch(fetchCarersRequest())
-//       axios
-//         .get('http://localhost:3001/api/v1/users')
-//         .then(response => {
-//           // response.data is the users
-          
-//           const carers = response.data
-//           dispatch(fetchCarersSuccess(carers))
-//         })
-//         .catch(error => {
-//           // error.message is the error message
-//           dispatch(fetchCarersFailure(error.message))
-//         })
-//     }
-//   }
