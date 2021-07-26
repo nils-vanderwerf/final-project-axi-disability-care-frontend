@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react'
 import { Container, FormControl, FormGroup, InputLabel, TextField, Button, RadioGroup, Radio, FormControlLabel } from '@material-ui/core';
 import { connect } from 'react-redux';
+import { getCurrentUser } from '../../../../redux/users/currentUser/currentUserActions';
 import Step1UserType from './Steps/User/step1UserType';
 import Step2PersonalDetails from './Steps/User/step2PersonalDetails';
 import Step3Address from './Steps/User/step3Address';
@@ -31,6 +32,7 @@ class Registration extends Component {
                 role: "carer",
                 first_name: "",
                 last_name: "",
+                // profile_picture: "",
                 bio: "",
                 age: "",
                 gender: "",
@@ -52,12 +54,18 @@ class Registration extends Component {
                 password: "",
                 password_confirmation: ""
             },
+            fileInputState: '',
+            selectedFile: '',
+            previewSource: null,
             submitResponse: ''
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
+        this.handleFileSelect = this.handleFileSelect.bind(this);
+        this.previewFile = this.previewFile.bind(this);
+       
         // this.handleNestedChange = this.handleNestedChange.bind(this);
         // // this.handleRadioChange = this.handleRadioChange.bind(this);
     }
@@ -77,6 +85,8 @@ class Registration extends Component {
             marginBottom: theme.spacing(1),
         },
     }));
+
+
 
     handleSubmit(event) {
         event.preventDefault()
@@ -109,10 +119,11 @@ class Registration extends Component {
             { withCredentials: true }
         )
         .then(response => {
-            console.log("response", response)
+            console.log("response", response.data.status)
             if (response.data.status === 'created') {
                 console.log(response.data)
-                this.props.handleLogin(response.data);
+                this.props.getCurrentUser(response.data)
+                this.props.history.push("/dashboard", response.data)
             }
         })
         .catch(error => {
@@ -197,7 +208,6 @@ class Registration extends Component {
     handleChange(event) {
         const { user } = this.state;
         const {currentCarerStep, currentParticipantStep} = this.state
-        console.log("User is correct:", user)
         const currentState = user;
         const { name, value } = event.target;
         currentState[name] = value;
@@ -219,6 +229,27 @@ class Registration extends Component {
         }  
     }
 
+   
+    handleFileSelect = event => {
+        this.setState({ 
+            user: {
+                ...this.state.user,
+                profile_picture: event.target.files[0]
+            }
+        })
+        console.log(this.state.user.profile_picture)
+        this.previewFile(this.state.user.profile_picture)
+    }
+
+    previewFile = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file)
+        reader.onloadend = () => {
+            this.setState({
+                previewSource: reader.result
+            })
+        }
+    }
 
     handleCheckBoxChange = event => {
         console.log(event.target.id)
@@ -232,7 +263,7 @@ class Registration extends Component {
           newArray = newArray.filter
           (category => category !== event.target.name);
         }
-        (console.log(newArray))
+
         currentState.categories = newArray
 
         this.setState({
@@ -290,6 +321,8 @@ class Registration extends Component {
                         currentParticipantStep={this.state.currentParticipantStep}
                         currentCarerStep={this.state.currentCarerStep}
                         handleChange={this.handleChange}
+                        handleFileSelect={this.handleFileSelect}
+                        fileUploadState={this.state}
                         stateValues={user}
                     />
                     <Step3Address
@@ -362,4 +395,20 @@ class Registration extends Component {
     }
 }
 
-export default Registration
+  const mapStateToProps = state => {
+    return {
+      userData: state.user
+    }
+  }
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+      getCurrentUser: (user) => dispatch(getCurrentUser(user))
+    }
+  }
+  
+  export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Registration)
+  

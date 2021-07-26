@@ -1,21 +1,55 @@
-import { Container, 
-        FormGroup, 
-        TextField,  
-        RadioGroup, 
-        Radio, 
-        FormControlLabel } 
-from '@material-ui/core'
+import {
+    Container,
+    FormGroup,
+    TextField,
+    RadioGroup,
+    Radio,
+    FormControlLabel,
+    Button
+}
+    from '@material-ui/core'
 import React, { Component } from 'react'
+import axios from 'axios'
 
 class Step2PersonalDetails extends Component {
     constructor(props) {
         super(props)
-    
+        this.state = {
+            fileInputState: '',
+            previewSource: '',
+            selectedFile: '',
+            successMsg: '',
+            errMsg: ''
+        }
+
+        // this.handleFileInputChange = this.handleFileInputChange.bind(this)
+        this.handleSubmitFile = this.handleSubmitFile.bind(this);
     }
+
+
+
+    handleSubmitFile = (event) => {
+        event.preventDefault();
+        const selectedImage = this.props.stateValues.profile_picture
+        if (!selectedImage) return
+        this.uploadImage(selectedImage)
+        const formData = new FormData()
+        console.log(selectedImage)
+        formData.append('file', selectedImage)
+        formData.append("upload_preset", "user_profile_pictures")
+
+        axios.post("https://api.cloudinary.com/v1_1/dfiu0abeq/image/upload", formData)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                var url = data.secure_url;
+            });
+    }
+
     render() {
-        const {stateValues, currentCarerStep, currentParticipantStep, handleChange} = this.props
-        if ( (currentCarerStep !== 2 && stateValues.role == 'carer') 
-        || (currentParticipantStep !== 2 && stateValues.role == 'participant') ) {
+        const { stateValues, currentCarerStep, currentParticipantStep, handleChange, handleFileSelect, fileUploadState } = this.props
+        if ((currentCarerStep !== 2 && stateValues.role == 'carer')
+            || (currentParticipantStep !== 2 && stateValues.role == 'participant')) {
             console.log(stateValues.role)
             return null
         }
@@ -111,6 +145,21 @@ class Step2PersonalDetails extends Component {
                             label="Other"
                         />
                     </RadioGroup>
+                    <h2>Choose profile picture</h2>
+                    <div className="profile-picture-upload">
+                        <input type="file"
+                            name="profile_picture"
+                            onChange={handleFileSelect} />
+                        <Button variant="contained"
+                            onClick={this.handleSubmitFile}>
+                            Upload image
+                        </Button>
+                        {fileUploadState.previewSource && (
+                            <img src={fileUploadState.previewSource}
+                                alt="chosen"
+                                style={{ height: '100px' }} />
+                        )}
+                    </div>
 
                     <h2>Please tell us a bit about yourself</h2>
                     <TextField
@@ -126,7 +175,7 @@ class Step2PersonalDetails extends Component {
                         fullWidth />
                 </FormGroup>
             </Container >
-        
+
         )
     }
 }

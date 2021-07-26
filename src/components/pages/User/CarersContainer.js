@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { fetchCarers } from '../../../redux/users/fetchCarers/fetchCarerActions'
+import { fetchCarers } from '../../../redux/users/fetchCarers/fetchCarersActions'
 import { Button } from '@material-ui/core'
 import CarersItem from './CarersItem'
 

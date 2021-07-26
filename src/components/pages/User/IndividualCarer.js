@@ -1,14 +1,21 @@
 import React, { Component } from 'react'
-import { fetchCarers } from '../../../redux/users/fetchCarers/fetchCarerActions'
+import { fetchCarers } from '../../../redux/users/fetchCarers/fetchCarersActions'
 import {connect} from 'react-redux'
+import {Button} from '@material-ui/core'
 
 class IndividualCarer extends Component {
   constructor(props) {
       super(props)
+
+      this.bookUser = this.bookUser.bind(this)
   }
 
   componentDidMount() {
       this.props.fetchCarers()
+  }
+
+  bookUser = () => {
+    //When they click on button, create a new booking for the participant and attach them to a carer
   }
     render() {
         const carers = this.props.userData.carers.users
@@ -28,6 +35,14 @@ class IndividualCarer extends Component {
                 <h2>Hourly rate: ${thisCarer.hourly_rate}</h2>
                 <p><strong>Bio:</strong> {thisCarer.bio}</p>
                  {/* {this.props.userData.carers.users.find(user => user.id === this.props.match.params.id)} */}
+              
+                  <Button
+                  className="book-user"
+                  color="primary"
+                  variant="contained"
+                  type="button" onClick={this.bookUser}>
+                  Submit
+              </Button>
               </div>
           )
         } else {

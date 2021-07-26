@@ -5,15 +5,13 @@ import thunk from "redux-thunk";
 // import loginForm from "./reducers/loginForm";
 // import tasks from "./reducers/tasks";
 // import signUpForm from "./reducers/signUpForm";
-import fetchCarerReducer from './users/fetchCarers/fetchCarerReducer'
-import createUserReducer from "./users/auth/createUserReducer";
+import fetchCarerReducer from './users/fetchCarers/fetchCarersReducer'
+import currentUserReducer from "./users/currentUser/currentUserReducer";
 import logger from 'redux-logger'
 
 const rootReducer = combineReducers({
-  carer: fetchCarerReducer
-  // newUser: createUserReducer
-  // users, //* stretch goal to add user page
-  // categories
+  carer: fetchCarerReducer, //list of carers
+  user: currentUserReducer //current user
 });
 
 const store = createStore(

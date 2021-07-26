@@ -3,7 +3,9 @@ import axios from 'axios';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchCarers } from './redux/users/fetchCarers/fetchCarerActions'
+import { fetchCarers } from './redux/users/fetchCarers/fetchCarersActions'
+import { getCurrentUser, logoutCurrentUser } from './redux/users/currentUser/currentUserActions'
+
 import Home from './components/pages/Home'
 import Dashboard from './components/pages/Dashboard';
 import { AppBar, Container, Button } from '@material-ui/core';
@@ -26,7 +28,7 @@ class App extends Component {
 
     this.state = {
       loggedIn: false,
-      user: {}
+      user: {},
     }
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -36,17 +38,14 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.props.getCurrentUser()
     this.checkLoginStatus();
-    this.props.fetchCarers()
     console.log("Fetch carers response", this.props.userData)
   }
 
 
   handleLogin(data) {
-    this.setState({
-      loggedIn: false,
-      user: data
-    })
+   
   }
 
   checkLoginStatus() {
@@ -126,9 +125,6 @@ class App extends Component {
               )} />
 
               <Route path='/sign-up' render={props => (
-                  this.state.loggedIn ? 
-                  <Redirect to="/dashboard" /> 
-                  : 
                   <Registration
                   {...props}
                   handleLogout={this.handleLogout}
@@ -161,24 +157,20 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    userData: state.carer
+    carerData: state.carer,
+    userData: state.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchCarers: () => dispatch(fetchCarers())
+    fetchCarers: () => dispatch(fetchCarers()),
+    getCurrentUser: (user) => dispatch(getCurrentUser(user)),
+    logoutCurrentUser: () => dispatch(logoutCurrentUser()),
   }
 }
-
-
-// const mapStateToProps = state => {
-//   return {
-//     loggedIn: !!state.currentUser
-//   };
-// };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(App)
