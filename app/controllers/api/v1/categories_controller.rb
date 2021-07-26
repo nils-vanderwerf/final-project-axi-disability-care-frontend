@@ -1,9 +1,9 @@
-class SupportCategoriesController < ApplicationController
+class Api::V1::CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :update, :destroy]
 
   # GET /categories
   def index
-    @categories = SupportCategory.all
+    @categories = Category.all
 
     render json: @categories
   end
@@ -15,7 +15,7 @@ class SupportCategoriesController < ApplicationController
 
   # POST /categories
   def create
-    @category = SupportCategory.new(category_params)
+    @category = Category.new(category_params)
 
     if @category.save
       render json: @category, status: :created, location: @category
@@ -41,7 +41,7 @@ class SupportCategoriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_category
-      @category = SupportCategory.find(params[:id])
+      @category = Category.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

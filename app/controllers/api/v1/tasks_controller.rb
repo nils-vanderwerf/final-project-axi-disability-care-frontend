@@ -3,7 +3,7 @@ class Api::V1::TasksController < ApplicationController
 		@task = Task.new(task_params)
 	
 		if @task.save!
-		  render :show
+		  puts "Success!"
 		else
 		  render json: @task.error.full_messages, status: 402
 		end
@@ -14,6 +14,12 @@ class Api::V1::TasksController < ApplicationController
 		@tasks = Task.all.where(user_id: current_user.id)
 		render :index
 	  end
+
+	def show
+	@task = Task.find(params[:id])
+	render :show
+	end
+	
 	
 	def destroy
 	@task = Task.find(params[:id])

@@ -23,6 +23,8 @@ class User < ApplicationRecord
     accepts_nested_attributes_for :area
     belongs_to :role, optional: true
 
+    has_one_attached :avatar
+
     has_many :user_categories
     has_many :categories, :through => :user_categories
     

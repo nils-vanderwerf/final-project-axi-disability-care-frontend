@@ -7,8 +7,7 @@
   resources :categories
   resources :tasks
     get 'api/v1/login' => 'api/v1/sessions#new'
-    get "api/v1/login", to: "sessions#new"
-    post "api/v1/sessions", to: "sessions#create"
+    post "api/v1/login", to: "api/v1/sessions#create"
     delete "api/v1/sessions", to: "sessions#destroy"
     get 'api/v1/get_current_user' => 'api/v1/sessions#get_current_user'
     delete 'api/v1/logout' => 'api/v1/sessions#logout'
@@ -20,9 +19,9 @@
       namespace :v1 do
         # resources :bookings
         resources :categories
-        resources :tasks
+        resources :tasks, only: [:create, :show, :index, :destroy]
         # resources :postcodes
-        resources :users, only: [:create, :show]
+        resources :users, only: [:create, :show, :index]
         # resources :carers
         # resources :participants
         # resources :bookings
