@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import {
   Select,
@@ -5,12 +6,9 @@ import {
   TextField,
   MenuItem,
   FormControl,
-  Container
-} from "@material-ui/core/";
-
+  Container} 
+from "@material-ui/core/";
 import { makeStyles } from "@material-ui/core/styles";
-import GoogleAutoComplete from 'react-auto-complete-address-fields';
-import 'react-auto-complete-address-fields/build/GoogleAutoComplete.css';
 
 const states = [
   ["NSW", "New South Wales"],
@@ -28,44 +26,45 @@ class Step3Address extends Component {
   constructor(props) {
     super(props)
 
-    this.addressAutoComplete = this.addressAutoComplete.bind(this)
   }
-
-  addressAutoComplete = (autoCompleteData) => {
-    console.log(autoCompleteData)
-  }
-
-
   render() {
-    const apiKey = process.env.REACT_APP_GOOGLE_API_KEY
-    console.log('APi Key =', apiKey)
-    const { stateValues, currentCarerStep, currentParticipantStep, handleChange } = this.props
-    if ((currentCarerStep !== 3 && stateValues.role == 'carer') || 
-        (currentParticipantStep !== 3 && stateValues.role == 'participant')) {
+    const {stateValues, currentCarerStep, currentParticipantStep, handleChange} = this.props
+    if ( (currentCarerStep !== 3 && stateValues.role == 'carer') 
+    || (currentParticipantStep !== 3 && stateValues.role == 'participant') ) {
       return null
-    }
-
+    } 
+    
     return (
       <Container>
+        
         <FormControl component="fieldset" className="address-form" fullWidth>
           <h3>Address</h3>
           <p>Where are you based?</p>
-          <GoogleAutoComplete
-            apiKey={apiKey}
-            id='location'
-            fields={{
-              city: "locality",
-              state: "administrative_area_level_1",
-              zip_code: "postal_code",
-            }}
-            addressAutoComplete={this.addressAutoComplete}
+          <TextField
+            label="City"
+            id="city"
+            name="city"
+            type="text"
+            value={stateValues.city}
+            onChange={handleChange}
+            margin="normal"
+            variant="outlined"
+            fullWidth
           />
-        </FormControl>
-      </Container>
-    )
 
+          <TextField
+            label="State"
+            id="state"
+            name="state"
+            type="text"
+            value={stateValues.state}
+            onChange={handleChange}
+            margin="normal"
+            variant="outlined"
+            fullWidth
+          />
 
-    /* <div class="select-wrapper">
+          {/* <div class="select-wrapper">
             <InputLabel id="city-state">Select a state</InputLabel>
             <Select
               id="city-state"
@@ -85,25 +84,22 @@ class Step3Address extends Component {
                 <MenuItem value={value} key={value}>{name}</MenuItem>
               ))}
             </Select>
-          </div> */
+          </div> */}
 
-//     <TextField
-//       label="Zip Code"
-//       type="text"
-//       name="zip_code"
-//       value={stateValues.zip_code}
-//       onChange={handleChange}
-//       margin="normal"
-//       variant="outlined"
-//       fullWidth
-//     />
-//         </FormControl >
-//       </Container >
-//     );
-//   }
-// }
+          <TextField
+            label="Zip Code"
+            type="text"
+            name="zip_code"
+            value={stateValues.zip_code}
+            onChange={handleChange}
+            margin="normal"
+            variant="outlined"
+            fullWidth
+          />
+        </FormControl>
+      </Container>
+    );
   }
 }
 
 export default Step3Address;
-
