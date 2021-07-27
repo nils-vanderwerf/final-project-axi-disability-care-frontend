@@ -57,7 +57,7 @@ class App extends Component {
               <Route path='/pick-category' component={SplashPage} />
 
 
-              <Route path='/pick-support-worker' render={props => (
+              <Route path='/pick-carer' render={props => (
                 <CarersContainer
                   {...props}
                   handleLogout={this.handleLogout}

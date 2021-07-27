@@ -65,6 +65,8 @@ class Registration extends Component {
         this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
         this.handleFileSelect = this.handleFileSelect.bind(this);
         this.previewFile = this.previewFile.bind(this);
+
+        
        
         // this.handleNestedChange = this.handleNestedChange.bind(this);
         // // this.handleRadioChange = this.handleRadioChange.bind(this);
