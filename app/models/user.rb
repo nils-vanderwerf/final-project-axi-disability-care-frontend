@@ -7,20 +7,28 @@ class User < ApplicationRecord
 
     has_many :booked_tasks,
     primary_key: :id,
-    foreign_key: :client_id,
+    foreign_key: :participant_id,
     class_name: :Task
+
+    has_many :tasks, through: :booked_tasks, source: :participant
 
     has_many :hired_tasks,
     primary_key: :id,
     foreign_key: :carer_id,
     class_name: :Task
 
+    has_many :tasks, through: :booked_tasks, source: :carer
+
+    has_many :hired_carers,
+    through: :booked_tasks,
+    source: :carer
+
     has_many :participants,
     through: :hired_tasks,
     source: :user
 
     belongs_to :area
-    accepts_nested_attributes_for :area
+    # Replace with custom area attributes method accepts_nested_attributes_for :area
     belongs_to :role, optional: true
 
     has_one_attached :avatar
@@ -30,12 +38,10 @@ class User < ApplicationRecord
     
     accepts_nested_attributes_for :categories
 
-    
-    # def authenticate(plaintext_password)
-    #     if BCrypt::Password.new(self.password_digest) == plaintext_password
-    #         self
-    #     else
-    #         false
-    #     end
-    # end
+    def area_attributes=(area)
+        self.area = Area.find_or_create_by(
+            city: area[:city].capitalize(), 
+            state: area[:state].capitalize(),
+            zip_code: area[:zip_code] )
+    end 
 end

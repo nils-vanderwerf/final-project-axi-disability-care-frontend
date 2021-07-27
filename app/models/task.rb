@@ -1,13 +1,13 @@
 class Task < ApplicationRecord
-    belongs_to :client,
+    belongs_to :participant,
         primary_key: :id,
-        foreign_key: :user_id,
+        foreign_key: :participant_id,
         class_name: :User,
         optional: true
 
     belongs_to :carer,
         primary_key: :id,
-        foreign_key: :tasker_id,
+        foreign_key: :carer_id,
         class_name: :User,
         optional: true
 

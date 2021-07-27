@@ -2,26 +2,24 @@
     include FastJsonapi::ObjectSerializer
     attributes :email
   
-    attribute :pets do |user|
-      user.pets.map do |pet|
+    attributes :tasks do |user|
+      user.tasks.map do |task|
         {
-          name: pet.name,
-          age: pet.age,
-          image: pet.image, 
-          cause: pet.cause,
-          goal: pet.goal
+          name: task.name,
+          description: task.age,
+          location: task.image, 
+          date: task.cause,
+          task_start_time: task.goal
         }
       end
     end
   
-    attribute :donations do |user|
-      user.donations.map do |donation|
-        {
-          amount: donation.amount,
-          message: donation.message
-        }
-      end
-    end
+    # attributes :bookings do |user|
+    #   user.bookings.map do |booking|
+    #     {
+    #       amount: booking.amount,
+    #       message: booking.message
+    #     }
+    #   end
+    # end
   end
-  
-end

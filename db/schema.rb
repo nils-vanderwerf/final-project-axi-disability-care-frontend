@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_25_082346) do
+ActiveRecord::Schema.define(version: 2021_07_26_054725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_082346) do
     t.string "location"
     t.date "task_date"
     t.time "task_start_time"
-    t.bigint "client_id"
+    t.bigint "participant_id"
     t.bigint "carer_id"
     t.bigint "category_id"
     t.boolean "completed", default: false
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_082346) do
     t.boolean "approved", default: false
     t.index ["carer_id"], name: "index_tasks_on_carer_id"
     t.index ["category_id"], name: "index_tasks_on_category_id"
-    t.index ["client_id"], name: "index_tasks_on_client_id"
+    t.index ["participant_id"], name: "index_tasks_on_participant_id"
   end
 
   create_table "user_categories", force: :cascade do |t|

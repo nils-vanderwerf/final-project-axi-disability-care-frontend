@@ -30,6 +30,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
+gem 'fast_jsonapi'
 
 group :development do
   gem 'listen', '~> 3.3'
