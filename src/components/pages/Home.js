@@ -36,6 +36,7 @@ class Home extends Component {
         return (
             <Container>
                 <h1>Home</h1>
+                <CategoryList/>
             </Container>
         )
     }

@@ -5,22 +5,24 @@ import {
   FETCH_CARERS_FAILURE
 } from '../userTypes'
 
-export const fetchCarers = () => {
-  return (dispatch) => {
-    dispatch(fetchCarersRequest())
-    axios
-      .get('http://localhost:3001/api/v1/users')
-      .then(response => {
-        // response.data is the users
-        
-        const carers = response.data
-        dispatch(fetchCarersSuccess(carers))
-      })
-      .catch(error => {
-        // error.message is the error message
-        dispatch(fetchCarersFailure(error.message))
-      })
-  }
+const fetchCarers = () => {
+    console.log("Fetch carers action")
+    return (dispatch) => {
+        axios.get('http://localhost:3001/api/v1/users')
+        .then(response => {
+            console.log('response', response)
+            // response.data is the users
+            const carers = response.data
+            const action = fetchCarersSuccess(carers)
+            console.log("Fetch carers success action:", action)
+            dispatch(action)
+        })
+        .catch(error => {
+            // error.message is the error message
+            dispatch(fetchCarersFailure(error.message))
+        })
+    }
+
 }
 
 export const fetchCarersRequest = () => {
@@ -42,4 +44,6 @@ export const fetchCarersFailure = error => {
     payload: error
   }
 }
+
+export default fetchCarers;
 

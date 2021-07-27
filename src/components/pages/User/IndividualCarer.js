@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { fetchCarers } from '../../../redux/actions/users_actions'
+import fetchCarers from '../../../redux/actions/users_actions'
 import {connect} from 'react-redux'
 import {Button} from '@material-ui/core'
 
@@ -27,7 +27,7 @@ class IndividualCarer extends Component {
           this.props.userData.carers && 
           this.props.userData.carers.users && 
           this.props.userData.carers.users.length > 0) {
-            const thisUser = carers.filter(user => user.id == this.props.match.match.params.id)
+            const thisUser = carers.find(user => user.id == this.props.match.match.params.id)
           return (
               <div>
                 {/* {console.log("Props id:", this.props.match.match.params.id)} */}
@@ -40,7 +40,7 @@ class IndividualCarer extends Component {
                   className="book-user"
                   color="primary"
                   variant="contained"
-                  type="button" onClick={this.bookUser}>
+                  type="button" >
                   Submit
               </Button>
               </div>
@@ -53,7 +53,7 @@ class IndividualCarer extends Component {
 
 const mapStateToProps = state => {
     return {
-      userData: state.carer
+      userData: state.carers
     }
   }
   

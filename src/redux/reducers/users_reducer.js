@@ -11,7 +11,7 @@ const initialState = {
   error: ''
 }
 
-const fetchCarers = (state = initialState, action) => {
+const fetchCarersReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_CARERS_REQUEST:
       return {
@@ -30,8 +30,9 @@ const fetchCarers = (state = initialState, action) => {
         carers: [],
         error: action.payload
       }
-    default: return state
+    default: 
+      return state
   }
 }
 
-export default fetchCarers
+export default fetchCarersReducer
