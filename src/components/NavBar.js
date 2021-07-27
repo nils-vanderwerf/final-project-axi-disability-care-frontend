@@ -1,17 +1,43 @@
+import axios from 'axios';
 import { AppBar, Container, Button } from '@material-ui/core'
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getCurrentUser, logout } from '../redux/users/currentUser/currentUserActions'
+import { getCurrentUser, logout } from '../redux/actions/session_actions'
 
 class NavBar extends Component {
     constructor(props) {
         super(props)
+
+        this.handleLogout = this.handleLogout.bind(this)
     }
 
     componentDidMount() {
-        console.log(this.props.userData)
+        console.log("What is userdata", this.props.userData)
     }
+
+    
+    handleLogout() {
+      axios
+      .delete("http://localhost:3001/api/v1/logout", { withCredentials: true })
+      .then(response => {
+          console.log("Logout success", response.data)
+          this.props.logout()
+          this.props.history.push("/", response.data)
+      })
+      .catch(error => {
+          console.log("logout error", error)
+      })
+  }
+
+  render() {
+      return (
+          <div>
+              <button onClick={this.handleLogout}>Logout</button>
+          </div>
+      )
+  }
+
     render() {
         return (
             <div>
@@ -19,7 +45,13 @@ class NavBar extends Component {
               <Container>
 
                 {
-                  this.props.userData  ?
+                  this.props.userData ?
+                    
+                  
+                   <Link to={{ pathname: '/' }}>
+                   <Button className="dark-theme" onClick={this.handleLogout}>Logout</Button>
+                 </Link>
+                    :
                     <>
                     <Link to={{ pathname: '/login' }}>
                       <Button className="dark-theme">Login</Button>
@@ -32,10 +64,6 @@ class NavBar extends Component {
                        </Button>
                    </Link>
                    </>
-                    :
-                    <Link to={{ pathname: '/logout' }}>
-                      <Button className="dark-theme">Logout</Button>
-                    </Link>
 
                 }
               </Container>
@@ -47,13 +75,14 @@ class NavBar extends Component {
 
 const mapStateToProps = state => {
     return {
-      userData: state.user
+      userData: state.user.user
     }
   }
   
   const mapDispatchToProps = dispatch => {
     return {
       getCurrentUser: (user) => dispatch(getCurrentUser(user)),
+      logout: () => dispatch(logout(null))
     }
   }
   

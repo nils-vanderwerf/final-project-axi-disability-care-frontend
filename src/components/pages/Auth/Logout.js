@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import {logout} from '../../../redux/actions/session_actions' 
 
 export default class Logout extends Component {
     constructor(props) {
@@ -12,7 +13,9 @@ export default class Logout extends Component {
         axios
         .delete("http://localhost:3001/logout", { withCredentials: true })
         .then(response => {
-            this.props.handleLogout();
+            console.log("Logout success", response.data)
+            this.props.logout()
+            this.props.history.push("/", response.data)
         })
         .catch(error => {
             console.log("logout error", error)
@@ -22,8 +25,23 @@ export default class Logout extends Component {
     render() {
         return (
             <div>
-                <button onClick={() => this.handleLogoutClick()}>Logout</button>
+                <button onClick={this.handleLogoutClick}>Logout</button>
             </div>
         )
     }
 }
+
+const mapDispatchToProps = dispatch => {
+    return {
+      logout: () => dispatch(logout(null))
+    }
+  }
+
+export default withRouter(
+    connect(
+      null,
+      mapDispatchToProps// thunk allows redux to pass this function to dispatch
+    )(LoginForm)
+  );
+
+

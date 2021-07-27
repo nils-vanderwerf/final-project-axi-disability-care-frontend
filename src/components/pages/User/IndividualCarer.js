@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { fetchCarers } from '../../../redux/users/fetchCarers/fetchCarersActions'
+import { fetchCarers } from '../../../redux/actions/users_actions'
 import {connect} from 'react-redux'
 import {Button} from '@material-ui/core'
 

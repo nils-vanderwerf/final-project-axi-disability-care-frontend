@@ -1,36 +1,49 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import { login } from "../../../redux/users/currentUser/currentUser";
-import { updateLoginForm } from '../../../redux/users/loginForm/loginFormActions';
+import axios from 'axios';
 import { TextField, Container, Button, FormControl, FormGroup} from '@material-ui/core';
 import { withRouter } from "react-router-dom";
+import {getCurrentUser} from '../../../redux/actions/session_actions'
 
 class LoginForm extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+          email: "",
+          password: ""
+        }
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
-    componentDidMount() {
-        console.log(this.props.loginFormData)
-    }
-
     handleSubmit = event => {
-        event.preventDefault();
-        login(this.props.loginFormData);
+      event.preventDefault()
+      const {email, password} = this.state;
+      console.log("submit clicked")
+
+      axios.post('http://localhost:3001/api/v1/login', 
+      {
+        user: {
+          email: email,
+          password: password
+        }
+      } 
+      )
+      .then(response => {
+        console.log("Login success", response.data)
+        this.props.getCurrentUser(response.data)
+        this.props.history.push("/dashboard", response.data)
+      })
+      .catch(error => {
+        console.log("registration error", error)
+      })
       };
 
-    handleChange = e => {
-       
-        const { name, value } = e.target;
-        const updatedFormInfo = {
-          ...this.props.loginFormData,
-          [name]: value
-        };
-        console.log(updatedFormInfo)
-        updateLoginForm(updatedFormInfo);
+    handleChange = event => {
+       this.setState({
+         [event.target.name]: event.target.value
+       })
       };
 
     render() {
@@ -48,7 +61,7 @@ class LoginForm extends Component {
                         type="email"
                         name="email"
                         placeholder="Email"
-                        value={loginFormData.email}
+                        value={this.state.email}
                         onChange={this.handleChange}
                         required/>
                     <br/>
@@ -58,12 +71,14 @@ class LoginForm extends Component {
                         type="password"
                         name="password"
                         label="Password"
-                        value={loginFormData.password}
+                        value={this.state.password}
                         onChange={this.handleChange}
                         required/>
                     <br/>
 
-                    <Button type="submit" color="primary" variant="contained" style={{marginTop: '10px'}}>Login</Button>
+                    <Button type="submit" color="primary" variant="contained" 
+                    onClick={this.handleSubmit} 
+                    style={{marginTop: '10px'}}>Login</Button>
                     </FormControl>
                     </FormGroup>
                 </form>
@@ -72,24 +87,17 @@ class LoginForm extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    // gives access to state from the store as props // getting what we need access to freom the store
-    return {
-      loginFormData: state.loginForm
-    };
-  };
 
   const mapDispatchToProps = dispatch => {
     return {
-      updateLoginForm: () => dispatch(updateLoginForm()),
-      login: () => dispatch(login())
+      getCurrentUser: (user) => dispatch(getCurrentUser(user))
     }
   }
 
 export default withRouter(
     connect(
-      mapStateToProps,
+      null,
       mapDispatchToProps// thunk allows redux to pass this function to dispatch
     )(LoginForm)
   );
-  
+

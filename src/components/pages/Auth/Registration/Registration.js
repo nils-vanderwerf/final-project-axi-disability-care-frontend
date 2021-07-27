@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react'
 import { Container, FormControl, FormGroup, InputLabel, TextField, Button, RadioGroup, Radio, FormControlLabel } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { getCurrentUser } from '../../../../redux/users/currentUser/currentUserActions';
+import { getCurrentUser } from '../../../../redux/actions/session_actions';
 import Step1UserType from './Steps/User/step1UserType';
 import Step2PersonalDetails from './Steps/User/step2PersonalDetails';
 import Step3Address from './Steps/User/step3Address';

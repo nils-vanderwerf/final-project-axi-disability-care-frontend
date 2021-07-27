@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchCarers } from './redux/users/fetchCarers/fetchCarersActions'
-import { getCurrentUser, logout } from './redux/users/currentUser/currentUserActions'
+import fetchCarers from './redux/reducers/users_reducer'
+import { getCurrentUser, logout } from './redux/actions/session_actions'
 
 import NavBar from './components/NavBar'
 import Home from './components/pages/Home'
 import Dashboard from './components/pages/Dashboard';
-import {Container } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import { StyledButton, useStyles } from './styles/StyledButton';
 import Registration from './components/pages/auth/Registration/Registration'
 import SplashPage from './components/pages/Categories/CategoryList'
@@ -18,6 +18,7 @@ import MyTasks from './components/Tasks/myTasks';
 import UserAccount from './components/pages/User/Account';
 import CarersContainer from './components/pages/User/CarersContainer'
 import IndividualCarer from './components/pages/User/IndividualCarer'
+import LoginForm from './components/pages/auth/loginForm';
 
 
 class App extends Component {
@@ -34,17 +35,15 @@ class App extends Component {
       <>
         <div className="page-content">
           <Router>
-            <NavBar/>
+            <NavBar />
             <Switch>
               <Route
                 exact path={"/"}
                 render={props => (
                   <Home
                     {...props}
-                    // handleLogout={this.handleLogout}
+                  // handleLogout={this.handleLogout}
 
-                    handleLogin={this.handleLogin}
-                    loggedIn={this.props.loggedIn}
                   />
                 )} />
 
@@ -72,6 +71,13 @@ class App extends Component {
                 />
               )}
               />
+
+              <Route path='/login' render={props => (
+                <LoginForm
+                  {...props}
+                />
+              )} />
+
               <Route path='/new-task' render={props => (
                 <NewTask
                   {...props}
@@ -79,7 +85,7 @@ class App extends Component {
                   handleLogin={this.handleLogin}
                 />
               )} />
-              <Route path='/carer/:id' render={match => 
+              <Route path='/carer/:id' render={match =>
                 <IndividualCarer match={match} />
               } />
               <Route path='/confirm-task' component={ConfirmTask} />
@@ -87,7 +93,6 @@ class App extends Component {
               <Route exact path='/user-account' component={UserAccount} />
             </Switch>
 
-            <Container />
           </Router>
         </div>
       </>

@@ -5,17 +5,15 @@ import thunk from "redux-thunk";
 // import loginForm from "./reducers/loginForm";
 // import tasks from "./reducers/tasks";
 // import signUpForm from "./reducers/signUpForm";
-import fetchCarerReducer from './users/fetchCarers/fetchCarersReducer'
+import fetchCarerReducer from '../redux/reducers/users_reducer'
 import logger from 'redux-logger'
-import currentUser from "./users/currentUser/currentUser";
-import { currentUserReducer } from "./users/currentUser/currentUser";
-import loginFormReducer from "./users/loginForm/loginFormReducer";
+import { currentUserReducer } from "./reducers/users_reducer";
+import userReducer from "./reducers/sessions_reducer";
 
 
 const rootReducer = combineReducers({
   carer: fetchCarerReducer, //list of carers
-  user: currentUserReducer, //current user
-  loginForm: loginFormReducer 
+  user: userReducer //current user
 });
 
 const store = createStore(

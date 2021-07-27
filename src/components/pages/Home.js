@@ -17,26 +17,25 @@ import PlacesAutocomplete, {
 class Home extends Component {
     constructor(props) {
         super(props)
-
-        this.handleChange = this.handleChange.bind(this)
+// 
     }
 
-    handleChange = address => {
-        this.setState({ address });
-    };
+    // handleChange = address => {
+    //     this.setState({ address });
+    // };
 
-    handleSelect = address => {
-        geocodeByAddress(address)
-            .then(results => getLatLng(results[0]))
-            .then(latLng => console.log('Success', latLng))
-            .catch(error => console.error('Error', error));
-    };
+    // handleSelect = address => {
+    //     geocodeByAddress(address)
+    //         .then(results => getLatLng(results[0]))
+    //         .then(latLng => console.log('Success', latLng))
+    //         .catch(error => console.error('Error', error));
+    // };
 
 
     render() {
         return (
             <Container>
-                <LoginForm/>
+                <h1>Home</h1>
             </Container>
         )
     }
