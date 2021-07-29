@@ -39,18 +39,20 @@ class NavBar extends Component {
   }
 
     render() {
+      const {userData} = this.props
         return (
             <div>
                  <AppBar position="static" color="primary">
               <Container>
 
                 {
-                  this.props.userData ?
-                    
-                  
+                  userData ?
+                    <>
                    <Link to={{ pathname: '/' }}>
                    <Button className="dark-theme" onClick={this.handleLogout}>Logout</Button>
                  </Link>
+                 <span><strong>Welcome, {userData.user.first_name}</strong></span>
+                 </>
                     :
                     <>
                     <Link to={{ pathname: '/login' }}>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
+import axios from 'axios';
 import fetchCarers from './redux/reducers/users_reducer'
 import { getCurrentUser, logout } from './redux/actions/session_actions'
 
@@ -19,14 +20,21 @@ import UserAccount from './components/pages/User/Account';
 import CarersContainer from './components/pages/User/CarersContainer'
 import IndividualCarer from './components/pages/User/IndividualCarer'
 import LoginForm from './components/pages/auth/loginForm';
+import { CollectionsOutlined } from '@material-ui/icons';
 
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+
+  }
 
 
   componentDidMount() {
     this.props.getCurrentUser()
+    console.log(this.props.userData)
   }
+
 
 
   render() {
@@ -103,7 +111,6 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    loggedIn: !!state.currentUser,
     carerData: state.carer,
     userData: state.user
   }
@@ -111,8 +118,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchCarers: () => dispatch(fetchCarers()),
-    getCurrentUser: (user) => dispatch(getCurrentUser(user)),
+    getCurrentUser: () => dispatch(getCurrentUser()),
     logout: (user) => dispatch(logout(user))
   }
 }

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import axios from 'axios';
 import { TextField, Container, Button, FormControl, FormGroup} from '@material-ui/core';
 import { withRouter } from "react-router-dom";
-import {getCurrentUser} from '../../../redux/actions/session_actions'
+import {setCurrentUser} from '../../../redux/actions/session_actions'
 
 class LoginForm extends Component {
     constructor(props) {
@@ -32,7 +32,7 @@ class LoginForm extends Component {
       )
       .then(response => {
         console.log("Login success", response.data)
-        this.props.getCurrentUser(response.data)
+        this.props.setCurrentUser(response.data)
         this.props.history.push("/dashboard", response.data)
       })
       .catch(error => {
@@ -90,7 +90,7 @@ class LoginForm extends Component {
 
   const mapDispatchToProps = dispatch => {
     return {
-      getCurrentUser: (user) => dispatch(getCurrentUser(user))
+      setCurrentUser: (user) => dispatch(setCurrentUser(user))
     }
   }
 

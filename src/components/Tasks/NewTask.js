@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import { Container, TextField, InputLabel, FormGroup } from '@material-ui/core'
+import { connect } from 'react-redux'
+import { getCurrentUser } from '../../redux/actions/session_actions'
 import axios from 'axios'
 
 
-export default class NewTask extends Component {
+class NewTask extends Component {
     constructor(props) {
         super(props)
         this.state = {
             task: {
                 name: "",
+                user_id: this.props.getCurrentUser ? this.props.getCurrentUser.id : "",
                 description: "",
                 location: "",
                 task_date: "",
@@ -19,18 +22,23 @@ export default class NewTask extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        console.log(this.props.getCurrentUser())
+    }
+
+
     handleSubmit(event) {
         const {name, description, location, task_date, task_start_time} = this.state.task
         const { task } = { ...this.state };
         event.preventDefault()
         console.log(this.state.name)
         axios.post('http://localhost:3001/api/v1/tasks/new', {
-            task: task
+            task
         }
         ).
             then(response => {
                 console.log(response)
-                this.props.history.push("/pick-support-worker");
+                this.props.history.push("/pick-carer");
             })
             .catch(error => {
                 console.log("error", error)
@@ -102,3 +110,21 @@ export default class NewTask extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+      userData: state.user.user
+    }
+  }
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+      getCurrentUser: (user) => dispatch(getCurrentUser(user)),
+    }
+  }
+  
+  export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(NewTask)
+  
