@@ -16,10 +16,10 @@ class NavBar extends Component {
         console.log("What is userdata", this.props.userData)
     }
 
-    
+    // # withCredentials: true 
     handleLogout() {
       axios
-      .delete("http://localhost:3001/api/v1/logout", { withCredentials: true })
+      .delete("http://localhost:3001/api/v1/logout")
       .then(response => {
           console.log("Logout success", response.data)
           this.props.logout()

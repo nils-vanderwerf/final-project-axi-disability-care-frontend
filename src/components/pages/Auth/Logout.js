@@ -11,7 +11,7 @@ export default class Logout extends Component {
 
     handleLogoutClick() {
         axios
-        .delete("http://localhost:3001/logout", { withCredentials: true })
+        .delete("http://localhost:3001/logout")
         .then(response => {
             console.log("Logout success", response.data)
             this.props.logout()

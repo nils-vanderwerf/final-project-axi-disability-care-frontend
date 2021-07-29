@@ -25,28 +25,31 @@ class Step5Hours extends Component {
                 </h2>
 
                 <FormControl component="fieldset">
-                    <RadioGroup aria-label="How many hours of support do you think you'll need?" name="hours_of_work" onChange={handleChange} value={stateValues.hours_of_work}>
+                    <RadioGroup aria-label="How many hours of support do you think you'll need?" name="available_hours" onChange={handleChange} value={stateValues.available_hours}>
                         <FormControlLabel
-                            name="hours_of_work"
-                            control={<Radio checked={stateValues.hours_of_work === "1 - 10 hours"} />}
+                            name="available_hours"
+                            control={<Radio checked={stateValues.available_hours === "1 - 10 hours"} />}
                             value="1 - 10 hours"
                             label="1 - 10 hours"
                         />
                         <FormControlLabel
-                            name="hours_of_work"
-                            control={<Radio checked={stateValues.hours_of_work === "11-25 hours"} />}
+                            name="available_hours"
+                            control=
+                            {<Radio checked={stateValues.available_hours === "11-25 hours"} />}
                             value="11-25 hours"
                             label="11-25 hours"
                         />
                         <FormControlLabel
-                            name="hours_of_work"
-                            control={<Radio checked={stateValues.hours_of_work === "26-35 hours"} />}
+                            name="available_hours"
+                            control=
+                            {<Radio checked={stateValues.available_hours === "26-35 hours"} />
+                            }
                             value="26-35 hours"
                             label="26-35 hours"
                         />
                         <FormControlLabel
-                            name="hours_of_work"
-                            control={<Radio checked={stateValues.hours_of_work === "More than 35 hours"}/>}
+                            name="available_hours"
+                            control={<Radio checked={stateValues.available_hours === "More than 35 hours"}/>}
                             value="More than 35 hours"
                             label="More than 35 hours"
                         />

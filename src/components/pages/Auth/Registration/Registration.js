@@ -36,13 +36,13 @@ class Registration extends Component {
                 bio: "",
                 age: "",
                 gender: "",
-                area: {
+                address: {
                     city: "",
                     state: "",
                     zip_code: "",
                 },
                 email: "",
-                hours_of_work: 15,
+                available_hours: 15,
                 categories: [],
                 hourly_rate: 50,
                 first_aid_training: 'false',
@@ -93,29 +93,29 @@ class Registration extends Component {
     handleSubmit(event) {
         event.preventDefault()
         const { user } = { ...this.state};
-        console.log("Area", user.city, user.state, user.zip_code)
+        console.log("Address", user.city, user.state, user.zip_code)
         const category_ids = (user.categories ? user.categories.map(element => element.id) : null)
         // const category_ids = allCategoryIds
         const role_id = user.role === 'carer' ? 1 : 2
-        const area_attributes = {
+        const address_attributes = {
             city: user.city,
             state: user.state,
             zip_code: user.zip_code
         }
         delete user.categories
         delete user.role
-        delete user.area
+        delete user.address
         delete user.city
         delete user.state
         delete user.zip_code
 
-       console.log(area_attributes)
-        axios.post('http://localhost:3001/api/v1/registrations', {
+       console.log(address_attributes)
+        axios.post('http://localhost:3001/api/v1/register', {
             user : {
                 ...user,
                 role_id,
                 category_ids,
-                area_attributes
+                address_attributes
             }
         },
             { withCredentials: true }
@@ -218,8 +218,8 @@ class Registration extends Component {
             this.setState({ 
                 user: {
                     ...this.state.user, 
-                    area : {
-                        ...this.state.user.area,
+                    address : {
+                        ...this.state.user.address,
                         [name]: value
                     }
                 }
