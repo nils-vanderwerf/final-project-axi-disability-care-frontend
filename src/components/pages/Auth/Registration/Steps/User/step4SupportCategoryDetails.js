@@ -52,11 +52,13 @@ class Step4SupportCategoryDetails extends Component {
             </p>
 
             <FormControlLabel
-              id="3"
-              control={<Checkbox
-                onChange={handleCheckBoxChange}
-                value="education_and_employment" name="education_and_employment" />}
-                label="Education and employment"
+              control={
+                <Checkbox
+                  id="3"
+                  onChange={handleCheckBoxChange}
+                  value="education_and_employment"
+                  name="education_and_employment" />}
+                  label="Education and Employment"
             />
             <p>
               Coaching to help you achieve your goals at school, college or work.

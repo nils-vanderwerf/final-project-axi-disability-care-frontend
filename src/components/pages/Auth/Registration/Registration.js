@@ -20,7 +20,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { string } from 'prop-types';
 import ReviewStep from './ReviewStep';
 
-
 class Registration extends Component {
     constructor(props) {
         super(props)
@@ -110,6 +109,7 @@ class Registration extends Component {
         delete user.zip_code
 
        console.log(address_attributes)
+
         axios.post('http://localhost:3001/api/v1/register', {
             user : {
                 ...user,
@@ -117,14 +117,15 @@ class Registration extends Component {
                 category_ids,
                 address_attributes
             }
+
         },
-            { withCredentials: true }
+            {withCredentials: true}
         )
         .then(response => {
-            console.log("response", response.data.status)
+            console.log("response", response)
             if (response.data.status === 'created') {
                 console.log(response.data)
-                this.props.getCurrentUser(response.data)
+                // this.props.getCurrentUser(response.data)1`
                 this.props.history.push("/dashboard", response.data)
             }
         })
@@ -255,23 +256,31 @@ class Registration extends Component {
 
     handleCheckBoxChange = event => {
         console.log(event.target.id)
+        let array = [...this.state.user.categories]
+        let index = array.indexOf(event.target.value)
+        console.log("index", index)
         const { user } = { ...this.state };
         const currentState = user;
         const { name, value } = event.target;
-        let newArray = [...this.state.user.categories, 
-            {name: event.target.name, id: event.target.id}];
-        
-        if (this.state.user.categories.includes(event.target.name)) {
-          newArray = newArray.filter
-          (category => category !== event.target.name);
+        if (event.target.checked) {
+            array = [
+                ...this.state.user.categories, 
+                {name: event.target.name, id: event.target.id}];
+        }
+        else {
+                array.splice(index, 1);
+                this.setState({
+                    ...this.state.user, array
+                });
         }
 
-        currentState.categories = newArray
+        currentState.categories = array
 
         this.setState({
             user: currentState
         });
     }
+
 
     // handleRadioChange(event) {
     //     const valueToBool = this.str2bool(event.target.value)

@@ -43,7 +43,7 @@ class App extends Component {
       <>
         <div className="page-content">
           <Router>
-            <NavBar />
+            <NavBar className="blue-nav" />
             <Switch>
               <Route
                 exact path={"/"}
