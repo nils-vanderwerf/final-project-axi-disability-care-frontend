@@ -48,8 +48,8 @@ class Step2PersonalDetails extends Component {
 
     render() {
         const { stateValues, currentCarerStep, currentParticipantStep, handleChange, handleFileSelect, fileUploadState } = this.props
-        if ((currentCarerStep !== 2 && stateValues.role == 'carer')
-            || (currentParticipantStep !== 2 && stateValues.role == 'participant')) {
+        if ((currentCarerStep !== 2 && stateValues.role == "Carer")
+            || (currentParticipantStep !== 2 && stateValues.role == "Participant")) {
             console.log(stateValues.role)
             return null
         }

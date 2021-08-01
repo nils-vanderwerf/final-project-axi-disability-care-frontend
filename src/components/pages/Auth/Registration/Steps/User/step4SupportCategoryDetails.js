@@ -15,8 +15,8 @@ class Step4SupportCategoryDetails extends Component {
 
   render() {
     const { stateValues, currentCarerStep, currentParticipantStep, handleCheckBoxChange } = this.props
-    if ((currentCarerStep !== 4 && stateValues.role == 'carer')
-      || (currentParticipantStep !== 4 && stateValues.role == 'participant')) {
+    if ((currentCarerStep !== 4 && stateValues.role == "Carer")
+      || (currentParticipantStep !== 4 && stateValues.role == "Participant")) {
       return null
     }
     return (

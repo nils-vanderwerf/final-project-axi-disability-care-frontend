@@ -9,15 +9,15 @@ class Step5Hours extends Component {
     }
     render(){
         const {stateValues, currentParticipantStep, currentCarerStep, handleChange} = this.props
-        if ( (currentCarerStep !== 5 && stateValues.role == 'carer') 
-        || (currentParticipantStep !== 5 && stateValues.role == 'participant') ) {
+        if ( (currentCarerStep !== 5 && stateValues.role == "Carer") 
+        || (currentParticipantStep !== 5 && stateValues.role == "Participant") ) {
             return null
         }
 
         return (
             <Container>
                 <h2>
-                    {stateValues.role === "carer" ?
+                    {stateValues.role === "Carer" ?
                         "How many hours a week do you plan to work?" :
                         "How many hours of support do you think you'll need?"
                     }

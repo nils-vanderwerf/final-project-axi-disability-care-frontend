@@ -28,7 +28,7 @@ class Registration extends Component {
             currentParticipantStep: 1,
             editStep: 1,
             user: {
-                role: "carer",
+                role: "Carer",
                 first_name: "",
                 last_name: "",
                 // profile_picture: "",
@@ -95,29 +95,44 @@ class Registration extends Component {
         console.log("Address", user.city, user.state, user.zip_code)
         const category_ids = (user.categories ? user.categories.map(element => element.id) : null)
         // const category_ids = allCategoryIds
-        const role_id = user.role === 'carer' ? 1 : 2
+        
         const address_attributes = {
             city: user.city,
             state: user.state,
             zip_code: user.zip_code
         }
-        delete user.categories
-        delete user.role
-        delete user.address
-        delete user.city
-        delete user.state
-        delete user.zip_code
 
-       console.log(address_attributes)
+        const user_attributes = {
+            role: user.role,
+            email: user.email,
+            password: user.password,
+            password_confirmation: user.password_confirmation,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            bio: user.bio,
+            age: user.age,
+            gender: user.gender,
+            available_hours: user.available_hours,
+            category_ids: category_ids,
+            address_attributes: address_attributes
+            
+        }
 
-        axios.post('http://localhost:3001/api/v1/register', {
-            user : {
-                ...user,
-                role_id,
-                category_ids,
-                address_attributes
-            }
+        const carer = {
+            hourly_rate: user.hourly_rate,
+            first_aid_training: user.first_aid_training,
+            has_vehicle: user.has_vehicle,
+            carer_number: user.carer_number 
+        }
 
+        const participant = {
+            ndis: user.ndis,
+            ndis_number: user.ndis_number,
+            disability: user.disability
+        }
+
+        axios.post('http://localhost:3001/api/v1/users', {
+            user: user_attributes        
         },
             {withCredentials: true}
         )
@@ -132,20 +147,20 @@ class Registration extends Component {
         .catch(error => {
             console.log("registration error", error,)
         })
-}
+    }
 
 
 
     _next = () => {
         let currentParticipantStep = this.state.currentParticipantStep
         let currentCarerStep = this.state.currentCarerStep
-        if (currentCarerStep < 10 && this.state.user.role == 'carer') {
+        if (currentCarerStep < 10 && this.state.user.role == "Carer") {
             console.log(this.state.user.role)
             this.setState({
                 currentCarerStep: currentCarerStep + 1
             })
         }
-        if (currentParticipantStep < 8 && this.state.user.role == 'participant') {
+        if (currentParticipantStep < 8 && this.state.user.role == "Participant") {
             console.log(!this.state.user.role)
             this.setState({
                 currentParticipantStep: currentParticipantStep + 1
@@ -186,8 +201,8 @@ class Registration extends Component {
         let currentParticipantStep = this.state.currentParticipantStep
         let currentCarerStep = this.state.currentCarerStep
         console.log(this.state.user.role)
-        if (currentCarerStep < 10 && this.state.user.role === "carer" ||
-            currentParticipantStep < 8 && this.state.user.role === "participant") {
+        if (currentCarerStep < 10 && this.state.user.role === "Carer" ||
+            currentParticipantStep < 8 && this.state.user.role === "Participant") {
             return (
                 <Button
                     className="next-button"
@@ -296,7 +311,7 @@ class Registration extends Component {
 
 
     returnToEditPage() {
-        if (this.state.role === 'carer') {
+        if (this.state.role === "Carer") {
             this.setState({
                 currentCarerStep: this.state.editStep,
             })
@@ -316,7 +331,7 @@ class Registration extends Component {
             <Container>
                 <h1>Sign Up Form</h1>
 
-                <h2>Step {this.state.user.role === "carer" ? this.state.currentCarerStep : this.state.currentParticipantStep} </h2>
+                <h2>Step {this.state.user.role === "Carer" ? this.state.currentCarerStep : this.state.currentParticipantStep} </h2>
 
                 <form onSubmit={this.handleSubmit}>
                     {/* 
@@ -355,7 +370,7 @@ class Registration extends Component {
                         handleChange={this.handleChange}
                         stateValues={user}
                     />
-                    {this.state.user.role === "carer" ?
+                    {this.state.user.role === "Carer" ?
                         <>
                             <Step6CarerVerification
                                 currentCarerStep={this.state.currentCarerStep}

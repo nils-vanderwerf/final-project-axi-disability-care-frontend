@@ -21,8 +21,8 @@ class ReviewStep extends Component {
     render() {
         const { stateValues, currentCarerStep, currentParticipantStep } = this.props
 
-        if ((currentCarerStep !== 10 && stateValues.role == 'carer')
-            || (currentParticipantStep !== 8 && stateValues.role == 'participant')) {
+        if ((currentCarerStep !== 10 && stateValues.role == "Carer")
+            || (currentParticipantStep !== 8 && stateValues.role == "Participant")) {
             return null
         }
         return (
@@ -61,7 +61,7 @@ class ReviewStep extends Component {
                         <p><strong>Zip Code: </strong>{stateValues.zip_code}</p>
                     </li>
 
-                    {stateValues.role === 'carer' ?
+                    {stateValues.role === "Carer" ?
 
                         <li class="review-item">
                             <p><strong>Preferred number of hours of work: </strong>{stateValues.hours_of_work}</p>
@@ -89,7 +89,7 @@ class ReviewStep extends Component {
                         </ul>
                     </li>
 
-                    {stateValues.role === 'carer' ?
+                    {stateValues.role === "Carer" ?
                         <>
                             <li class="review-item">
                                 <p><strong>Hourly rate: </strong>{stateValues.hourly_rate}</p>
