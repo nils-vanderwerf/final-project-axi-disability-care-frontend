@@ -118,21 +118,81 @@ class Registration extends Component {
             
         }
 
-        const carer = {
+        const carer_attributes = {
+            ...user_attributes,
             hourly_rate: user.hourly_rate,
             first_aid_training: user.first_aid_training,
             has_vehicle: user.has_vehicle,
             carer_number: user.carer_number 
         }
 
-        const participant = {
+        const participant_attributes = {
+            ...user_attributes,
             ndis: user.ndis,
             ndis_number: user.ndis_number,
             disability: user.disability
         }
 
-        axios.post('http://localhost:3001/api/v1/users', {
-            user: user_attributes        
+        console.log("Carer Attributes: ", carer_attributes )
+        console.log("Participant Attributes: ", participant_attributes )
+
+        if (user.role === 'Carer') {
+            this.signUpCarer(carer_attributes)
+        } else if (user.role === 'Participant') {
+            this.signUpParticipant(participant_attributes)
+        } else {
+            console.log("Selection not valid")
+        }
+
+        // this.signUpCarer(carer_attributes)  this.signUpParticipant(participant_attributes)
+
+        // axios.post('http://localhost:3001/api/v1/sign_up', {
+            
+        //     user: {
+        //         user_attributes, 
+        //     },
+                    
+        // },
+        //     {withCredentials: true}
+        // )
+        // .then(response => {
+        //     console.log("response", response)
+        //     if (response.data.status === 'created') {
+        //         console.log(response.data)
+        //         // this.props.getCurrentUser(response.data)1`
+        //         this.props.history.push("/dashboard", response.data)
+        //     }
+        // })
+        // .catch(error => {
+        //     console.log("registration error", error,)
+        // })
+    }
+
+
+    signUpCarer = (carer_attributes) => {
+
+        axios.post('http://localhost:3001/api/v1/carers/sign_up', {
+            carer: carer_attributes          
+        },
+            {withCredentials: true}
+        )
+        .then(response => {
+            console.log("response", response)
+            if (response.data.status === 'created') {
+                console.log(response.data)
+                // this.props.getCurrentUser(response.data)1`
+                this.props.history.push("/dashboard", response.data)
+            }
+        })
+        .catch(error => {
+            console.log("registration error", error,)
+        })
+    }
+
+    signUpParticipant = (participant_attributes) => {
+
+        axios.post('http://localhost:3001/api/v1/participants/sign_up', {
+            participant: participant_attributes          
         },
             {withCredentials: true}
         )
